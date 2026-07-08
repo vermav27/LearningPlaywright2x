@@ -1,0 +1,1 @@
+console.log("Welocme to the learning of javascript @2x");
