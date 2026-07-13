@@ -76,3 +76,6 @@ console.log("===:", new String("hi") === "hi");  // false (object vs primitive)
 // 18. null is not equal to empty string
 console.log("== :", null == "");   // false
 console.log("===:", null === "");  // false
+
+
+// IMPORTANT : We never use == in real automation testcases. we only use ===.
