@@ -1,5 +1,5 @@
 //Comparison Operator
-// < , > , >= , <= , == , === , ! , != , !===
+// < , > , >= , <= , == , === , ! , != , !==
 
 // =    ---->   Assignment operator
 // ==   ---->   Loose Comparison
@@ -10,6 +10,8 @@ console.log(3 > 4);
 console.log(3 >= 4); //( OR gate in this as (3>4) OR (3=4))
 console.log(3 <= 4); //( OR gate in this as (3<4) OR (3=4))
 
+console.log(5 != "5"); // False
+console.log(5 !== "5"); // True // Loose check
 
 console.log(42 == "42"); // loose comparison //   ---> TRUE  //Checking only the value
 console.log(42 === "42"); // Strict comparison // ---> FALSE //Checking both value and the type
