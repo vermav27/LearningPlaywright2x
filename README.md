@@ -65,6 +65,27 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 36_Nullish_Op.js
   - 37_Increment_Decrement_Op.js
 
+- chapter_07_if_else/ - conditional logic with if/else, if/else-if/else, and real-world tasks
+  - 38_if_else.js
+  - 39_if_elseif_else.js
+  - 40_RealExample_ifElse.js
+  - 41_if_else_example.js
+  - 42_TASK_even_odd.js
+  - 43_TASK_grade_calculator.js
+  - 44_TASK_leapYear.js
+  - 45_HW_statusCode_categorizer.js
+  - 46_HW_TestCaseChecker.js
+  - 47_HW_BugSeverityChecker.js
+  - 48_HW_BuildChecker.js
+  - 49_HW_LoginAttempt.js
+
+- chapter_08_switch_statement/ - switch and grouped case statements
+  - 50_switch.js
+  - 51_switchGroup.js
+
+- chapter_09_user__input/ - capturing and handling user input
+  - 52_userinput.js
+
 ## How to use
 
 1. Open any JavaScript file in VS Code.
