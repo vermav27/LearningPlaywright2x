@@ -14,3 +14,20 @@ Output: Severity: Critical – Block release
 Input: 5
 Output: Severity: Medium
 */
+let bugSeverityScore = 9;
+let severity;
+
+if (bugSeverityScore >= 1 && bugSeverityScore <= 3) {
+    severity = "Low";
+} else if (bugSeverityScore >= 4 && bugSeverityScore <= 6) {
+    severity = "Medium";
+} else if (bugSeverityScore === 7 || bugSeverityScore === 8) {
+    severity = "High";
+} else if (bugSeverityScore === 9 || bugSeverityScore === 10) {
+    severity = "Critical (Block Release)";
+} else {
+    severity = "Invalid Score";
+}
+
+console.log("Input:", bugSeverityScore);
+console.log("Output:", severity);

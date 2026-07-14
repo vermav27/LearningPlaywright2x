@@ -13,3 +13,18 @@ Output: 🟡 Stable – Investigate failures
 Input: 65
 Output: 🔴 Broken Build – Block deployment
 */
+let percentage = 100;
+let output;
+
+if (percentage < 70) {
+    output = "🔴 Broken Build – Block deployment";
+} else if (percentage >= 70 && percentage <= 89) {
+    output = "🟠 Unstable";
+} else if (percentage >= 90 && percentage <= 99) {
+    output = "🟡 Stable – Investigate failures";
+} else {
+    output = "🟢 Green Build";
+}
+
+console.log("Input:", percentage);
+console.log("Output:", output);
