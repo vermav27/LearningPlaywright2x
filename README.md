@@ -10,6 +10,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Scope, hoisting, and block-level behavior examples
 - Number, string, null, undefined, and template literal examples
 - Operator examples covering arithmetic, comparison, logical, ternary, nullish, increment/decrement, and string concatenation
+- Loop constructs: for, while, do-while, break, and continue
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -85,6 +86,14 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 
 - chapter_09_user__input/ - capturing and handling user input
   - 52_userinput.js
+
+- chapter_10_loops/ - loop constructs: for, while, do-while, break, and continue
+  - 53_ForLoop.js
+  - 54_For_Of_In_Each.js
+  - 55_whileLoop.js
+  - 56_dowhile.js
+  - 57_continuekeyword.js
+  - 58_breakkeyword.js
 
 ## How to use
 

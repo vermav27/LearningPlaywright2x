@@ -510,7 +510,75 @@ num = Number(num); // convert string to number
 
 ---
 
-## 14. Quick Reference — Type Coercion Table
+## 14. Control Flow — Loops
+
+### for Loop
+Repeats a block of code a specific number of times.
+
+```js
+for (initialization; condition; updation) {
+    // code to execute each iteration
+}
+
+for (let i = 0; i < 5; i++) {
+    console.log(i); // 0, 1, 2, 3, 4
+}
+```
+
+**Flow:** Initialize → Check condition → Execute body → Update → Re-check condition → ...
+
+### while Loop
+Repeats as long as the condition is true. Use when the number of iterations is unknown.
+
+```js
+let attempt = 0;
+while (attempt <= 4) {
+    console.log("Attempt:", attempt);
+    attempt++;
+}
+```
+
+**Key point:** Condition is checked **before** the body runs. If the condition is false initially, the body never executes.
+
+### do-while Loop
+Similar to while, but the body runs **at least once** before the condition is checked.
+
+```js
+let retry = 1;
+do {
+    console.log("Retrying attempt =", retry);
+    retry++;
+} while (retry < 4);
+```
+
+**Key point:** Guarantees at least one execution — useful when the action must happen before you know if you need to repeat.
+
+### break vs continue
+
+| Keyword | Effect |
+|---|---|
+| `break` | **Exits the entire loop** immediately |
+| `continue` | **Skips the current iteration** and moves to the next |
+
+**break example:**
+```js
+for (let i = 0; i < 10; i++) {
+    if (i === 4) break;  // loop stops when i reaches 4
+    console.log(i);       // 0, 1, 2, 3
+}
+```
+
+**continue example:**
+```js
+for (let i = 0; i < 5; i++) {
+    if (i === 2) continue;  // skip i=2
+    console.log(i);          // 0, 1, 3, 4
+}
+```
+
+---
+
+## 15. Quick Reference — Type Coercion Table
 
 | Expression | == | === |
 |---|---|---|
@@ -526,7 +594,7 @@ num = Number(num); // convert string to number
 
 ---
 
-## 15. Key Interview Takeaways
+## 16. Key Interview Takeaways
 
 1. **Always prefer `===` over `==`** — Avoids type coercion surprises.
 2. **Prefer `let` and `const` over `var`** — Block scoping prevents leaks.
