@@ -11,6 +11,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Number, string, null, undefined, and template literal examples
 - Operator examples covering arithmetic, comparison, logical, ternary, nullish, increment/decrement, and string concatenation
 - Loop constructs: for, while, do-while, break, and continue
+- Array methods: push, pop, shift, unshift, splice, slice, indexOf, includes, join, map, filter, reduce, flat
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -94,6 +95,19 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 56_dowhile.js
   - 57_continuekeyword.js
   - 58_breakkeyword.js
+
+- chapter_11_arrays/ - array methods and transformation
+  - 59_basic_array.js
+  - 60_array_push.js
+  - 61_array_pop.js
+  - 62_array_unshift.js
+  - 63_array_shift.js
+  - 64_array_splice.js
+  - 65_array_slice.js
+  - 66_array_indexOf.js
+  - 67_array_includes.js
+  - 68_array_join.js
+  - 69_transform_arrays.js
 
 ## How to use
 

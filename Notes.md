@@ -606,3 +606,136 @@ for (let i = 0; i < 5; i++) {
 8. **switch with grouped cases** — Useful for mapping multiple inputs to one output.
 9. **Template literals** — Prefer over concatenation for readability.
 10. **NaN is never equal to anything** — Use `Number.isNaN()` to check.
+
+---
+
+## 17. Array Transformation Methods
+
+Array transformation methods **do not mutate the original array** — they return a new array or value based on it.
+
+### map() — Transform each element
+
+Creates a new array by applying a function to **every element** of the original array. The output array always has the **same length** as the input.
+
+```js
+let score = [23, 45, 78, 77, 90, 43, 23];
+
+// Convert each score into "Pass" or "Fail"
+let result = score.map(s => s > 70 ? "Pass" : "Fail");
+console.log(result);
+// ["Fail", "Fail", "Pass", "Pass", "Pass", "Fail", "Fail"]
+
+// Another example — double each number
+let nums = [1, 2, 3, 4];
+let doubled = nums.map(n => n * 2);
+console.log(doubled); // [2, 4, 6, 8]
+```
+
+**When to use:** You need to convert every item in an array to something else (e.g., numbers → strings, objects → specific properties).
+
+---
+
+### filter() — Keep only matching elements
+
+Creates a new array containing only the elements that pass a condition. The output array is **equal or shorter** than the input.
+
+```js
+let score = [23, 45, 78, 77, 90, 43, 23];
+
+// Keep only scores above 60
+let passed = score.filter(x => x > 60);
+console.log(passed);
+// [78, 77, 90]
+
+// Another example — keep only even numbers
+let numbers = [1, 2, 3, 4, 5, 6];
+let evens = numbers.filter(n => n % 2 === 0);
+console.log(evens); // [2, 4, 6]
+```
+
+**When to use:** You need to remove elements that don't match a criterion.
+
+---
+
+### reduce() — Reduce array to a single value
+
+Accumulates each element into a single result (sum, product, object, etc.). The callback receives an **accumulator** and the **current element**, and returns the new accumulator.
+
+```js
+let score = [23, 45, 78, 77, 90, 43, 23];
+
+// Sum all scores (starting from 0)
+let total = score.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+console.log(total); // 379
+
+// What happens step-by-step:
+// acc=0, val=23 → 23
+// acc=23, val=45 → 68
+// acc=68, val=78 → 146
+// acc=146, val=77 → 223
+// acc=223, val=90 → 313
+// acc=313, val=43 → 356
+// acc=356, val=23 → 379 ✅
+
+// Without initial value — uses first element as starting accumulator
+let sum = score.reduce((a, b) => a + b);
+console.log(sum); // 379 (same result)
+
+// Another example — find max value
+let maxScore = score.reduce((max, current) => current > max ? current : max);
+console.log(maxScore); // 90
+```
+
+**When to use:** You need a single result from an array — sum, average, max, min, or building an object/string from array data.
+
+---
+
+### flat() — Flatten nested arrays
+
+Flattens nested arrays into a single-level array. By default, it goes **one level deep**. To go deeper, pass a depth number or `Infinity`.
+
+```js
+let nested = [[1, 2, 3], [5, 6, [5, 7]], [7, 8]];
+
+// Default depth = 1
+console.log(nested.flat());
+// [1, 2, 3, 5, 6, [5, 7], 7, 8]
+// The inner [5, 7] stayed nested because it's 2 levels deep
+
+// Depth = 2
+console.log(nested.flat(2));
+// [1, 2, 3, 5, 6, 5, 7, 7, 8]
+
+// Depth = Infinity (flatten everything)
+let deep = [1, [2, [3, [4]]]];
+console.log(deep.flat(Infinity));
+// [1, 2, 3, 4]
+```
+
+**When to use:** You have nested arrays (e.g., from splitting data) and need a flat list.
+
+---
+
+### Quick Comparison
+
+| Method | What it does | Returns | Same length? |
+|---|---|---|---|
+| `map()` | Transforms each element | New array | ✅ Yes |
+| `filter()` | Keeps matching elements | New array | ❌ No (shorter) |
+| `reduce()` | Accumulates into one value | Single value | N/A |
+| `flat()` | Flattens nested arrays | New array | ❌ No (differs) |
+
+### Chaining — Combine methods
+
+Since these methods return arrays (except `reduce`), you can **chain** them together:
+
+```js
+let score = [23, 45, 78, 77, 90, 43, 23];
+
+// Get total of all scores above 60
+let totalPassing = score
+    .filter(s => s > 60)      // [78, 77, 90]
+    .reduce((a, b) => a + b); // 78 + 77 + 90 = 245
+
+console.log(totalPassing); // 245
+```
