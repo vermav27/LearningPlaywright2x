@@ -10,8 +10,8 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Scope, hoisting, and block-level behavior examples
 - Number, string, null, undefined, and template literal examples
 - Operator examples covering arithmetic, comparison, logical, ternary, nullish, increment/decrement, and string concatenation
-- Loop constructs: for, while, do-while, break, and continue
-- Array methods: push, pop, shift, unshift, splice, slice, indexOf, includes, join, map, filter, reduce, flat
+- Loop constructs: for, while, do-while, break, continue, and pattern-based homework (triangle classifier, right-angle triangle, left-right triangle, pyramid)
+- Array creation, access, manipulation (adding/removing), searching, iteration, and transformation (map, filter, reduce, flat)
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -88,25 +88,25 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - chapter_09_user__input/ - capturing and handling user input
   - 52_userinput.js
 
-- chapter_10_loops/ - loop constructs: for, while, do-while, break, and continue
+- chapter_10_loops/ - loop constructs: for, while, do-while, break, continue, and pattern homework
   - 53_ForLoop.js
   - 54_For_Of_In_Each.js
   - 55_whileLoop.js
   - 56_dowhile.js
   - 57_continuekeyword.js
   - 58_breakkeyword.js
+  - 59_HW_triangleClassifier.js
+  - 60_HW_rightangle_triangle.js
+  - 61_HW_leftright_triangle.js
+  - 62_HW_Pyramid_pattern.js
 
-- chapter_11_arrays/ - array methods and transformation
-  - 59_basic_array.js
-  - 60_array_push.js
-  - 61_array_pop.js
-  - 62_array_unshift.js
-  - 63_array_shift.js
-  - 64_array_splice.js
-  - 65_array_slice.js
-  - 66_array_indexOf.js
-  - 67_array_includes.js
-  - 68_array_join.js
+- chapter_11_arrays/ - array creation, access, manipulation, searching, iteration, and transformation
+  - 63_arrays.js
+  - 64_arrays.js
+  - 65_Access_Array.js
+  - 66_adding_removing.js
+  - 67_searching.js
+  - 68_iteration.js
   - 69_transform_arrays.js
 
 ## How to use
