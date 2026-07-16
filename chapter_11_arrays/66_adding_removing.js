@@ -40,7 +40,7 @@ arr.splice(2, 0, 1); // It means it will not remove the element starting from in
 console.log(arr);
 // [ 2, 3, 1, 56, 'hello' ]
 
-//Remove element from array and insert a new elements at that place 
+//Remove element from array and insert new elements at that place 
 arr.splice(1, 2, "vineet", 78); // It means remove the element starting from  the index 1 and from that remove 2 elements and add "vineet" & 78 in place of that.
 console.log(arr);
 //[ 2, "vineet", 78, 56, 'hello' ]
