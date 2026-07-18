@@ -100,7 +100,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 61_HW_leftright_triangle.js
   - 62_HW_Pyramid_pattern.js
 
-- chapter_11_arrays/ - array creation, access, manipulation, searching, iteration, and transformation
+- chapter_11_arrays/ - array creation, access, manipulation, searching, iteration, transformation, sorting, slicing, concatenation, and validation
   - 63_arrays.js
   - 64_arrays.js
   - 65_Access_Array.js
@@ -108,6 +108,10 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 67_searching.js
   - 68_iteration.js
   - 69_transform_arrays.js
+  - 70_array.js
+  - 71_slice.js
+  - 72_concatenate.js
+  - 73_checkArray.js
 
 ## How to use
 
