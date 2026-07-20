@@ -118,6 +118,76 @@ greet(); // calling
 
 Functions can be called multiple times, reused anywhere.
 
+### 4 Types of Functions
+
+Functions can be categorized by return type and parameters:
+
+| Type | Has Return? | Has Parameters? | Example |
+|---|---|---|---|
+| No Return / No Param | ❌ | ❌ | `function greet() { console.log("Hi"); }` |
+| No Return / With Param | ❌ | ✅ | `function greet(name) { console.log(name); }` |
+| With Return / No Param | ✅ | ❌ | `function greet() { return "Hello"; }` |
+| With Return / With Param | ✅ | ✅ | `function add(a,b) { return a+b; }` |
+
+**Key point:** A function without a `return` statement returns `undefined`.
+
+```js
+function greet(name) {
+    console.log("Hello !", name);
+} // no return — just logs
+
+let x = greet("Vineet");
+console.log(x); // undefined
+```
+
+### Function Expression
+
+Functions can be stored in variables. The function itself has no name (anonymous), and the variable is used to call it.
+
+```js
+const greet = function (name) {
+    let x = `Hi ${name}`;
+    return x;
+};
+
+let fullGreet = greet("Vihan");
+console.log(fullGreet); // "Hi Vihan"
+```
+
+**Key difference:** Function declarations are hoisted (can be called before definition). Function expressions are not — they follow normal variable hoisting rules (TDZ with `let`/`const`).
+
+### Arrow Function
+
+A compact syntax for writing functions. Removes the `function` keyword, curly braces (for single-expression bodies), and the `return` keyword (implicit return).
+
+```js
+const greet = (name) => `Hi ${name}`;
+
+let res = greet("Vineet");
+console.log(res); // "Hi Vineet"
+```
+
+**Transformation from regular function to arrow function:**
+1. Remove the `function` keyword
+2. Remove curly braces (`{}`)
+3. Remove the `return` statement (return is implicit for single-expression bodies)
+
+```js
+// Regular function expression
+const greet = function(name) {
+    return `Hi ${name}`;
+};
+
+// Arrow function (same thing)
+const greet = (name) => `Hi ${name}`;
+```
+
+**Arrow function rules:**
+- Single parameter → parentheses optional: `name => name.length`
+- No parameters → empty parentheses required: `() => 42`
+- Single expression → implicit return, no `{}` needed
+- Multi-line body → need `{}` and explicit `return`
+
 ---
 
 ## 6. Hoisting & Temporal Dead Zone (TDZ)
