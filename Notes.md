@@ -259,6 +259,112 @@ console.log(codeResult); // true (400 >= 400)
 
 **Key difference:** Rest collects arguments → array (in function definition). Spread expands array → arguments (in function call).
 
+### Closure
+
+A closure is when an inner function is returned from an outer function and retains access to the outer function's variables even after the outer function has finished executing.
+
+```js
+function outer() {
+    let msg = "Hello";
+    console.log("Outer Called");
+
+    function inner() {
+        console.log(msg);
+    }
+    return inner;
+}
+
+let func_inner = outer();
+func_inner(); // "Hello" still accessible via closure
+```
+
+**Use case — counter with private state:**
+
+```js
+function makeCounter(start = 0) {
+    let count = start;
+    return {
+        increment() { count++; },
+        decrement() { count--; },
+        get() { return count; }
+    };
+}
+
+let counter = makeCounter(0);
+counter.increment();
+counter.increment();
+counter.increment();
+console.log(counter.get()); // 3
+```
+
+**Key point:** `count` is not directly accessible from outside — it's private state maintained through the closure. The returned object's methods "remember" the `count` variable.
+
+---
+
+### Higher-Order Function
+
+A function that **takes a function as an argument** or **returns a function**. Used for callbacks, middleware, and decorator patterns.
+
+```js
+function runWithLogin(testFunc, testName) {
+    console.log(`Hi Starting Test : ${testName}`);
+    let result = testFunc();
+    console.log(`Test--> ${testName} is ${result}`);
+    return result;
+}
+
+function loginPass() {
+    return "PASS";
+}
+
+function loginFail() {
+    return "FAIL";
+}
+
+let output = runWithLogin(loginPass, "LoginwithDash"); // logs pass
+let output2 = runWithLogin(loginFail, "LoginwithUser"); // logs fail
+```
+
+**Key point:** `runWithLogin` is the higher-order function — it receives `loginPass`/`loginFail` as callbacks and executes them. This pattern is common in Playwright for test wrappers, middleware, and before/after hooks.
+
+---
+
+### Pure Function vs Impure Function
+
+A **pure function** always returns the same output for the same input and has no side effects. An **impure function** depends on external state or produces side effects.
+
+```js
+// Pure — predictable, no side effects
+function calculateAdd(a, b) {
+    return a + b;
+}
+
+let x = 5;
+let y = 10;
+let result = calculateAdd(x, y);
+console.log(result); // 15
+
+// Impure — result depends on external state (Math.random)
+function numberValid(num) {
+    return Math.random() >= num;
+}
+
+let digit = 10;
+let prediction = numberValid(digit);
+console.log(prediction); // unpredictable — depends on random
+```
+
+**Key differences:**
+
+| Pure | Impure |
+|---|---|
+| Same input → same output | Same input → different output possible |
+| No side effects | May modify external state |
+| No external dependencies | Depends on globals, DB, APIs, etc. |
+| Easy to test | Harder to test |
+
+**Testing relevance:** Pure functions are easy to unit test (just assert input → output). Impure functions need mocking (e.g., mocking `Math.random` or API calls).
+
 ---
 
 ## 6. Hoisting & Temporal Dead Zone (TDZ)
