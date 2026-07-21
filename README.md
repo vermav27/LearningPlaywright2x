@@ -114,7 +114,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 72_concatenate.js
   - 73_checkArray.js
 
-- chapter_12_functions/ - function types (no return/with return, no param/with param), function expressions, arrow functions, IIFE, default parameters, and rest parameters
+- chapter_12_functions/ - function types (no return/with return, no param/with param), function expressions, arrow functions, IIFE, default parameters, rest parameters, closures, higher-order functions, and pure functions
   - 74_function.js
   - 75_NoReturnType_NoParam.js
   - 76_NoReturnType_WithParam.js
@@ -125,6 +125,9 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 81_ImmediateInvokedfunction.js
   - 82_Default_Param_Fn.js
   - 83_Rest_Param.js
+  - 84_closure.js
+  - 85_HigherOrder_Func.js
+  - 86_Pure_Func.js
 
 ## How to use
 
