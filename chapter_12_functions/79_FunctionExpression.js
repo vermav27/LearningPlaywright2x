@@ -6,4 +6,4 @@ const greet = function (name) {
 }
 
 let fullGreet = greet("Vihan");
-console.log(fullGreet);
+console.log(fullGreet); 

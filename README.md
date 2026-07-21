@@ -12,7 +12,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Operator examples covering arithmetic, comparison, logical, ternary, nullish, increment/decrement, and string concatenation
 - Loop constructs: for, while, do-while, break, continue, and pattern-based homework (triangle classifier, right-angle triangle, left-right triangle, pyramid)
 - Array creation, access, manipulation (adding/removing), searching, iteration, and transformation (map, filter, reduce, flat)
-- Function types (no return/with return, no param/with param), function expressions, and arrow functions
+- Function types (no return/with return, no param/with param), function expressions, arrow functions, IIFE, default parameters, and rest parameters
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -114,7 +114,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 72_concatenate.js
   - 73_checkArray.js
 
-- chapter_12_functions/ - function types (no return/with return, no param/with param), function expressions, and arrow functions
+- chapter_12_functions/ - function types (no return/with return, no param/with param), function expressions, arrow functions, IIFE, default parameters, and rest parameters
   - 74_function.js
   - 75_NoReturnType_NoParam.js
   - 76_NoReturnType_WithParam.js
@@ -122,6 +122,9 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 78_WithReturnType_WithParam.js
   - 79_FunctionExpression.js
   - 80_ArrowFunction.js
+  - 81_ImmediateInvokedfunction.js
+  - 82_Default_Param_Fn.js
+  - 83_Rest_Param.js
 
 ## How to use
 
