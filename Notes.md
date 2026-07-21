@@ -43,8 +43,11 @@ var \u0041 = "A";  // valid (unicode)
 | snake_case | `first_name` | Less common in JS |
 | PascalCase | `UserProfile` | Classes, constructors |
 | UPPER_SNAKE_CASE | `MAX_LENGTH` | Constants |
+| Hungarian notation | `strFirstName`, `numAge` | Prefix indicates type |
 
 ---
+
+
 
 ## 3. Comments
 
@@ -187,6 +190,74 @@ const greet = (name) => `Hi ${name}`;
 - No parameters → empty parentheses required: `() => 42`
 - Single expression → implicit return, no `{}` needed
 - Multi-line body → need `{}` and explicit `return`
+
+### IIFE (Immediately Invoked Function Expression)
+
+A function that runs as soon as it's defined. Never needs to be explicitly called.
+
+```js
+// Named IIFE
+(function () {
+    console.log("I will be called up when no one is going to call me.");
+})();
+
+// Arrow IIFE
+(() => {
+    console.log("Hello");
+})();
+```
+
+**Use cases:** Creating a private scope, avoiding global variable pollution, async IIFE for `await`.
+
+### Default Parameters
+
+Function parameters can have default values. If no argument is passed (or `undefined`), the default is used.
+
+```js
+function retry(testName, maxRetries = 3, delay = 2000) {
+    console.log(`Retrying ${testName} upto ${maxRetries} with ${delay}`);
+}
+
+retry("Login to Dashboard"); // uses defaults: maxRetries=3, delay=2000
+retry("Signup", 5, 5000);    // overrides both defaults
+```
+
+### Rest Parameters & Spread in Functions
+
+**Rest (`...args`)** — Collects remaining arguments into an array.
+
+```js
+function result(suiteName, ...Results) {
+    console.log(suiteName);
+    console.log(Results); // array of all extra arguments
+}
+
+result("Login Page", 34, 45, "Hello"); // Results = [34, 45, "Hello"]
+result("Dashboard", "Staging", "Vineet");
+```
+
+**Spread (`...arr`)** — Expands an array into individual arguments.
+
+```js
+function add(a, b, c) {
+    return a + b + c;
+}
+
+let num = [1, 2, 3];
+let results1 = add(...num); // 6
+
+// Practical: check API response codes
+let responseCode = [200, 301, 400];
+
+function hasError(...codes) {
+    return codes.some(c => c >= 400);
+}
+
+let codeResult = hasError(...responseCode);
+console.log(codeResult); // true (400 >= 400)
+```
+
+**Key difference:** Rest collects arguments → array (in function definition). Spread expands array → arguments (in function call).
 
 ---
 
@@ -525,6 +596,60 @@ else if (code >= 400 && code <= 499) { /* Client Error */ }
 else if (code >= 500 && code <= 599) { /* Server Error */ }
 ```
 
+### QA/Testing Homework Tasks
+
+**Test Case Checker** — Compare expected vs actual output:
+```js
+let expected = "Login Successful";
+let actual = "Invalid Credentials";
+
+if (actual === expected) {
+    console.log("✅ Test Passed");
+} else {
+    console.log(`❌ Test Failed – Expected: ${expected}, Got: ${actual}`);
+}
+```
+
+**Bug Severity Checker** — Classify a 1-10 severity score:
+```js
+let score = 9;
+
+if (score >= 1 && score <= 3) severity = "Low";
+else if (score >= 4 && score <= 6) severity = "Medium";
+else if (score === 7 || score === 8) severity = "High";
+else if (score === 9 || score === 10) severity = "Critical (Block Release)";
+else severity = "Invalid Score";
+```
+
+**Build Health Checker** — Classify CI build by test pass %:
+```js
+let percentage = 95;
+
+if (percentage < 70) output = "🔴 Broken Build – Block deployment";
+else if (percentage >= 70 && percentage <= 89) output = "🟠 Unstable";
+else if (percentage >= 90 && percentage <= 99) output = "🟡 Stable – Investigate failures";
+else output = "🟢 Green Build";
+```
+
+**Login Attempt Tracker** — Lock account after 3 failed attempts:
+```js
+let attempts = 2;
+let attemptLeft = 3 - attempts;
+
+if (attempts === 0) output = "Login successful";
+else if (attempts === 1 || attempts === 2) output = `${attemptLeft} attempt(s) left before lockout`;
+else if (attempts >= 3) output = "🔒 Account Locked – Contact support";
+```
+
+**Triangle Classifier** — Equilateral / Isosceles / Scalene:
+```js
+let s1 = 10, s2 = 20, s3 = 20;
+
+if (s1 === s2 && s2 === s3) type = "equilateral";
+else if (s1 === s2 || s2 === s3 || s1 === s3) type = "isosceles";
+else type = "scalene";
+```
+
 ---
 
 ## 12. Control Flow — switch
@@ -644,6 +769,64 @@ for (let i = 0; i < 5; i++) {
     if (i === 2) continue;  // skip i=2
     console.log(i);          // 0, 1, 3, 4
 }
+```
+
+### Nested Loop — Star Patterns
+
+**Right-angle triangle:**
+```js
+for (let i = 1; i <= 5; i++) {
+    let row = "";
+    for (let j = 1; j <= i; j++) {
+        row += "*";
+    }
+    console.log(row);
+}
+// Output:
+// *
+// **
+// ***
+// ****
+// *****
+```
+
+**Inverted left-right triangle:**
+```js
+for (let i = 1; i <= 5; i++) {
+    let row = "";
+    for (let j = 5; j >= i; j--) {
+        row += "*";
+    }
+    console.log(row);
+}
+// Output:
+// *****
+// ****
+// ***
+// **
+// *
+```
+
+**Pyramid (centered with spaces):**
+```js
+let n = 5;
+for (let i = 1; i < n; i++) {
+    let blank = "";
+    for (let j = n; j > i; j--) {
+        blank += " ";
+    }
+    let star = "";
+    for (let k = 1; k <= 2 * i - 1; k++) {
+        star += "*";
+    }
+    console.log(blank + star);
+}
+// Output:
+//     *
+//    ***
+//   *****
+//  *******
+// *********
 ```
 
 ---
