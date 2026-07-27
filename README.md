@@ -12,7 +12,8 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Operator examples covering arithmetic, comparison, logical, ternary, nullish, increment/decrement, and string concatenation
 - Loop constructs: for, while, do-while, break, continue, and pattern-based homework (triangle classifier, right-angle triangle, left-right triangle, pyramid)
 - Array creation, access, manipulation (adding/removing), searching, iteration, and transformation (map, filter, reduce, flat)
-- Function types (no return/with return, no param/with param), function expressions, arrow functions, IIFE, default parameters, and rest parameters
+- Function types (no return/with return, no param/with param), function expressions, arrow functions, IIFE, default parameters, rest parameters, closures, higher-order functions, and pure functions
+- String operations: creation, properties, searching, substrings, transformation, concatenation, split/join, conversion, and character access
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -128,6 +129,14 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 84_closure.js
   - 85_HigherOrder_Func.js
   - 86_Pure_Func.js
+
+- chapter_13_strings/ - string operations: creation, properties, searching, substrings, transformation, concatenation, split/join, conversion, and character access
+  - 87_Strings.js
+  - 88_String_Properties.js
+  - 89_Search_Check.js
+  - 90_substring.js
+  - 91_Transform_String.js
+  - 92_StringConversion.js
 
 ## How to use
 
