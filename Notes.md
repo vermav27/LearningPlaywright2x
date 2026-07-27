@@ -1417,3 +1417,158 @@ numbers.some(s => s < 10);  // false (none are < 10)
 
 **Interview tip:** `every()` on an empty array returns `true` (vacuously true). `some()` on an empty array returns `false`.
 ```
+
+---
+
+## 27. Strings
+
+### Creating Strings
+
+```js
+// Single quotes
+let a = 'hello';
+
+// Double quotes
+let b = "Hello";
+
+// Backtick (template literal) — supports interpolation & multiline
+let seconds = 539;
+let durationMSG = `Test completed in ${seconds} ms`;
+
+let report = `
+Testname : Login Test
+Status : Fail
+Duration : ${duration} ms
+`;
+```
+
+### String Properties & Access
+
+```js
+let str = "Hello World !";
+
+str.length;      // 13 — length counts from 1
+str[0];          // "H"  — bracket access (0-indexed)
+str[7];          // "o"
+str.at(-1);      // "!"  — negative indexing, -1 = last
+str.at(-6);      // "o"
+```
+
+### Searching & Checking
+
+```js
+let url = "https://www.staging.sciensus.com";
+
+url.includes("staging");      // true
+url.startsWith("https://");    // true
+url.endsWith(".com");          // true
+
+url.indexOf("staging");        // 12 — first occurrence index (-1 if not found)
+url.lastIndexOf("g");          // 23 — last occurrence index
+
+url.search(/staging/);         // 12 — accepts regex
+```
+
+### Extracting Substrings
+
+```js
+let str = "This is a login test of sciensus.";
+
+str.slice(2, 11);     // "is is a l" — start index, end-1
+str.slice(4);         // "is a login test of sciensus."
+str.slice(-4);        // "sus." — negative = from end
+
+str.substring(5, 7);  // "s " — similar to slice but swaps if start > end
+```
+
+### Transforming Strings
+
+```js
+let str = "  Hello World !  ";
+
+str.toUpperCase();    // "  HELLO WORLD !  "
+str.toLowerCase();    // "  hello world !  "
+str.trim();           // "Hello World !" — removes spaces both ends
+str.trimStart();      // "Hello World !  "
+str.trimEnd();        // "  Hello World !"
+
+// Replace
+let msg = "This FAIL and gonna FAIL again.";
+msg.replace("FAIL", "PASS");     // "This PASS and gonna FAIL again." (first only)
+msg.replaceAll("FAIL", "PASS");  // "This PASS and gonna PASS again." (all occurrences)
+```
+
+### Concatenation
+
+```js
+let x = "Hello", y = "world";
+x + y;             // "Helloworld"
+x.concat(y);       // "Helloworld"
+`${x} ${y}`;       // "Hello world" — preferred
+```
+
+### Split & Join
+
+```js
+// split — string → array
+let r = "pass,fail,re,suppli";
+r.split(",");      // ["pass", "fail", "re", "suppli"]
+
+// join — array → string
+let arr = [99, 90, 89];
+arr.join("-");     // "99-90-89"
+```
+
+### String Conversion
+
+```js
+// Convert TO String
+(200).toString();       // "200"
+true.toString();        // "true"
+String(200);            // "200"
+String(true);           // "true"
+String(null);           // "null"
+String([1, 4, 2]);     // "1,4,2"
+
+// Convert TO Number
+Number("42");           // 42
+Number("");             // 0
+Number("abc");          // NaN
+parseInt("42px");       // 42  — parses integer from start
+parseFloat("32.23");    // 32.23 — parses float from start
+```
+
+### Character Access
+
+```js
+let str = "hello";
+str.charAt(0);          // "h"
+str.charAt(str.length - 1); // "o"
+
+// Reverse a string with charAt()
+let reversed = "";
+for (let i = str.length - 1; i >= 0; i--) {
+    reversed += str.charAt(i);
+}
+console.log(reversed);  // "olleh"
+```
+
+### Key Takeaways for Strings
+
+| Method | Returns | Mutates? |
+|---|---|---|
+| `.slice()` | String | ❌ No |
+| `.substring()` | String | ❌ No |
+| `.toUpperCase()` / `.toLowerCase()` | String | ❌ No |
+| `.trim()` / `.trimStart()` / `.trimEnd()` | String | ❌ No |
+| `.replace()` / `.replaceAll()` | String | ❌ No |
+| `.split()` | Array | ❌ No |
+| `.concat()` | String | ❌ No |
+| `.toString()` | String | ❌ No |
+| `.charAt()` | String | ❌ No |
+
+- **Strings are immutable** — all transformation methods return a new string, never modify the original.
+- **`at(-1)` is cleaner** than `str[str.length - 1]` for last character access.
+- **`.replace()` only replaces the first match** — use `.replaceAll()` for all occurrences.
+- **`String()` vs `.toString()`** — `String()` handles `null` and `undefined` safely; `.toString()` throws on them.
+```
