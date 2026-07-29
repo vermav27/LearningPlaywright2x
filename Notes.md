@@ -1778,3 +1778,110 @@ for (let key in user) {
 | Getters/Setters | Custom property access with `get`/`set` keywords |
 | `Object.keys/values/entries` | Extract keys, values, or both as arrays |
 | `for...in` | Iterate over object keys |
+
+---
+
+## 29. 2D Arrays (Multi-dimensional Arrays)
+
+A 2D array is an array of arrays — like a grid with rows and columns. Useful for representing matrices, test suites, scoreboards, etc.
+
+### Creating a 2D Array
+
+```js
+let grid = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+
+let rowMatrix = [
+    [1, 2, 3, 4]
+]; // 1 row × 4 columns (1×4 matrix)
+```
+
+### Accessing Elements
+
+Use `array[row][col]` — row index first, then column index.
+
+```js
+let grid = [
+    [10, 20, 30],
+    [40, 50, 60],
+    [70, 80, 90]
+];
+
+grid[0][0];  // 10  (row 0, col 0)
+grid[0][2];  // 30  (row 0, col 2)
+
+grid.length; // 3 — always the number of rows
+```
+
+### Nested Loop Iteration
+
+Use a nested `for` loop — outer loop for rows, inner loop for columns.
+
+```js
+for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+        console.log(grid[i][j]);
+    }
+}
+```
+
+### Transforming 2D Arrays — row-wise sum with map + reduce
+
+```js
+let scores = [
+    [23, 45, 99],
+    [54, 67, 77],
+    [40, 45, 42]
+];
+
+let rowSum = scores.map(row => row.reduce((a, b) => a + b, 0));
+console.log(rowSum); // [167, 198, 127]
+```
+
+**How it works:** `.map()` iterates each row (an inner array). `.reduce()` sums up the numbers within that row. Result is a 1D array of row totals.
+
+### Practical QA Example — Finding Failed Tests
+
+Given a 2D suite of test results, extract only the failed test names:
+
+```js
+let suiteResults = [
+    ["login-pass", "register-pass", "logout-fail"],
+    ["search-pass", "filter-fail", "sort-pass"],
+    ["checkout-fail", "payment-fail", "confirm-pass"]
+];
+
+let failedTest = [];
+for (let i = 0; i < suiteResults.length; i++) {
+    for (let j = 0; j < suiteResults[i].length; j++) {
+        if (suiteResults[i][j].endsWith("fail")) {
+            let testName = suiteResults[i][j].split("-");
+            failedTest.push(testName[0]);
+        }
+    }
+}
+console.log(failedTest);
+// ["logout", "filter", "checkout", "payment"]
+```
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `104_2D_Array.js` | Basic 2D array creation and nested loop iteration |
+| `105_2D_Array.js` | Row/col indexing, `length` property (rows count) |
+| `106_Array_Fn.js` | Row-wise sum with `map` + `reduce`, filtering failed tests from a 2D suite |
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Structure | Array of arrays — `[[row0], [row1], ...]` |
+| Access | `arr[row][col]` — both 0-indexed |
+| Row count | `arr.length` gives the number of rows |
+| Column count | `arr[0].length` gives the number of columns (if uniform) |
+| Iteration | Nested loops — outer for rows, inner for columns |
+| Transform | `map()` + `reduce()` for row-wise aggregation |

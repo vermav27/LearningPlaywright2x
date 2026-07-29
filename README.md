@@ -15,6 +15,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Function types (no return/with return, no param/with param), function expressions, arrow functions, IIFE, default parameters, rest parameters, closures, higher-order functions, and pure functions
 - String operations: creation, properties, searching, substrings, transformation, concatenation, split/join, conversion, and character access
 - Object fundamentals: creation, access, reference behavior, properties, methods, destructuring, spread, nesting, getters/setters, Object.keys/values/entries, and for...in loops
+- 2D Array fundamentals: creation, nested loop iteration, row-wise operations with `map`+`reduce`, and practical filtering (e.g., extracting failed test names from a test suite matrix)
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -151,6 +152,11 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 101_spread.js
   - 102_Get_Set_Method.js
   - 103_Object_KeyValueEntries.js
+
+- chapter_15_2D_Array/ - 2D array fundamentals: creation, nested loop iteration, row-wise map+reduce, and practical test-suite filtering
+  - 104_2D_Array.js
+  - 105_2D_Array.js
+  - 106_Array_Fn.js
 
 ## How to use
 
