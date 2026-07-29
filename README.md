@@ -14,6 +14,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Array creation, access, manipulation (adding/removing), searching, iteration, and transformation (map, filter, reduce, flat)
 - Function types (no return/with return, no param/with param), function expressions, arrow functions, IIFE, default parameters, rest parameters, closures, higher-order functions, and pure functions
 - String operations: creation, properties, searching, substrings, transformation, concatenation, split/join, conversion, and character access
+- Object fundamentals: creation, access, reference behavior, properties, methods, destructuring, spread, nesting, getters/setters, Object.keys/values/entries, and for...in loops
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -137,6 +138,19 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 90_substring.js
   - 91_Transform_String.js
   - 92_StringConversion.js
+
+- chapter_14_objects/ - object fundamentals: creation, access, reference behavior, properties, methods, destructuring, spread, nesting, getters/setters, Object.keys/values/entries, and for...in loops
+  - 93_objects.js
+  - 94_objects.js
+  - 95_RealExample.js
+  - 96_primitive_Ref.js
+  - 97_dynamicpropertyaccess.js
+  - 98_object_function.js
+  - 99_destructuring.js
+  - 100_object_in_object.js
+  - 101_spread.js
+  - 102_Get_Set_Method.js
+  - 103_Object_KeyValueEntries.js
 
 ## How to use
 

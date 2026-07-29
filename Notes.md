@@ -1571,4 +1571,210 @@ console.log(reversed);  // "olleh"
 - **`at(-1)` is cleaner** than `str[str.length - 1]` for last character access.
 - **`.replace()` only replaces the first match** — use `.replaceAll()` for all occurrences.
 - **`String()` vs `.toString()`** — `String()` handles `null` and `undefined` safely; `.toString()` throws on them.
+
+---
+
+## 28. Objects
+
+### Creating Objects
+
+Objects store key-value pairs. Use `const` for objects (the reference doesn't change, even though properties can).
+
+```js
+const obj = {}; // empty object
+
+let details = {
+    name: "Vineet",
+    age: 42,
+    city: "Delhi",
+    job: "Software Engineer"
+};
 ```
+
+### Accessing Properties
+
+```js
+// Dot notation (preferred when key is known)
+details.age;  // 42
+
+// Bracket notation (for dynamic keys or invalid identifiers)
+details["city"]; // "Delhi"
+
+// Dynamic property access
+const key = "place";
+user[key]; // "Delhi"
+```
+
+### Reference Behavior
+
+Objects are **reference types** — variables hold a reference to the same object in memory, not a copy.
+
+```js
+let yourDetail = details;
+yourDetail.name = "Bhushan";
+
+console.log(details.name);  // "Bhushan" — changed in both!
+console.log(yourDetail.name); // "Bhushan"
+
+// Primitives are different — they're copied by value
+let a = 10;
+let b = a;
+b = 90;
+
+console.log(a); // 10 (unchanged)
+console.log(b); // 90
+```
+
+### Adding, Modifying & Deleting Properties
+
+```js
+let config = {};
+
+config.browser = "chrome";   // add
+config.timeout = 3000;       // add
+config.env = "staging";      // add
+config.env = "prod";         // modify
+
+delete config.env;           // remove a key-value pair
+
+console.log(config); // { browser: "chrome", timeout: 3000 }
+```
+
+### Methods (Functions in Objects)
+
+Objects can hold functions as property values — these are called **methods**.
+
+```js
+let calculator = {
+    value: 0,
+    addition(a, b) {
+        return a + b;
+    },
+    subtraction(a, b) {
+        return a - b;
+    }
+};
+
+calculator.addition(10, 4);      // 14
+calculator.subtraction(10, 4);   // 6
+```
+
+### Getters & Setters
+
+Define custom behavior when accessing or assigning a property using `get` and `set`.
+
+```js
+const user = {
+    firstName: "Vineet",
+    lastName: "Verma",
+    get fullName() {
+        return this.firstName + this.lastName;
+    },
+    set fullName(value) {
+        [this.firstName, this.lastName] = value.split(" ");
+    }
+};
+
+user.fullName; // "VineetVerma" (accessed like a property, not a method)
+```
+
+### Destructuring
+
+Extract properties into individual variables in one statement.
+
+```js
+const user = {
+    name: "Vineet",
+    age: 34,
+    city: "Una"
+};
+
+// Basic destructuring
+const { name, age } = user;
+console.log(name); // "Vineet"
+
+// Renaming keys
+const { name: userName, age: userAge } = user;
+console.log(userName); // "Vineet"
+
+// Default values (used when key is missing)
+const { country = "INDIA" } = user;
+console.log(country); // "INDIA"
+```
+
+### Spread Operator (...)
+
+Merge or copy objects by spreading their properties into a new object.
+
+```js
+let obj1 = { a: 1, b: 2 };
+let obj2 = { c: 3, d: 4 };
+
+let copyObj = { ...obj1, ...obj2 };
+console.log(copyObj); // { a: 1, b: 2, c: 3, d: 4 }
+```
+
+### Nested Objects
+
+Objects can contain other objects to any depth.
+
+```js
+let data = {
+    users: {
+        user1: {
+            name: "Vineet",
+            age: 34,
+            place: { city1: "Una", city2: "Delhi" }
+        },
+        user2: {
+            name: "Ankita",
+            age: 33,
+            place: { city1: "Bikaner", city2: "Delhi" }
+        }
+    }
+};
+
+// Access nested properties with dot chaining
+console.log(data.users.user2.place.city2); // "Delhi"
+```
+
+### Object.keys() / Object.values() / Object.entries()
+
+Utility methods to inspect object contents.
+
+```js
+const obj = { a: 1, b: 3, c: 6 };
+
+Object.keys(obj);    // ["a", "b", "c"]
+Object.values(obj);  // [1, 3, 6]
+Object.entries(obj); // [["a", 1], ["b", 3], ["c", 6]]
+```
+
+### for...in Loop
+
+Iterate over an object's enumerable keys.
+
+```js
+const user = { name: "Vineet", place: "Delhi", animal: "Dog" };
+
+for (let key in user) {
+    console.log(`${key} --> ${user[key]}`);
+}
+// name --> Vineet
+// place --> Delhi
+// animal --> Dog
+```
+
+### Key Takeaways for Objects
+
+| Concept | Key Point |
+|---|---|
+| Reference type | Variables store a reference, not a copy — mutating affects all references |
+| Dot vs Bracket | Dot for known keys, bracket for dynamic keys (`user[key]`) |
+| `delete` | Removes a property entirely from the object |
+| Methods | Functions defined as object properties |
+| Destructuring | Unpack properties into variables with `{ key1, key2 } = obj` |
+| Spread `...` | Merge/copy objects shallowly |
+| Getters/Setters | Custom property access with `get`/`set` keywords |
+| `Object.keys/values/entries` | Extract keys, values, or both as arrays |
+| `for...in` | Iterate over object keys |
