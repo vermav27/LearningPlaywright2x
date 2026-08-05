@@ -16,6 +16,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - String operations: creation, properties, searching, substrings, transformation, concatenation, split/join, conversion, and character access
 - Object fundamentals: creation, access, reference behavior, properties, methods, destructuring, spread, nesting, getters/setters, Object.keys/values/entries, and for...in loops
 - 2D Array fundamentals: creation, nested loop iteration, row-wise operations with `map`+`reduce`, and practical filtering (e.g., extracting failed test names from a test suite matrix)
+- Callback fundamentals: passing callbacks (named, anonymous, arrow), synchronous vs asynchronous callbacks with `setTimeout`, callbacks with parameters, and callback hell (nested callbacks)
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -157,6 +158,15 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 104_2D_Array.js
   - 105_2D_Array.js
   - 106_Array_Fn.js
+
+- chapter_16_callback/ - callback fundamentals: passing callbacks (named, anonymous, arrow), sync vs async callbacks, callbacks with parameters, and callback hell
+  - 107_callback.js
+  - 108_callback.js
+  - 109_Timeout_Callback.js
+  - 110_sync_callback.js
+  - 111_async_callback.js
+  - 112_callbackHell.js
+  - 113_callbackWithParameters.js
 
 ## How to use
 
