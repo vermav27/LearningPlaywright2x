@@ -1885,3 +1885,160 @@ console.log(failedTest);
 | Column count | `arr[0].length` gives the number of columns (if uniform) |
 | Iteration | Nested loops — outer for rows, inner for columns |
 | Transform | `map()` + `reduce()` for row-wise aggregation |
+
+---
+
+## 30. Callbacks
+
+A **callback** is a function passed as an argument to another function, which is then executed inside the outer function. Callbacks are the foundation of asynchronous JavaScript and are heavily used in automation (test hooks, waiting, retries).
+
+### Basic Callback — 3 Ways to Pass
+
+The outer function receives a callback and invokes it when its work is done.
+
+```js
+function printMSG() {
+    console.log("Hi How are you ?");
+}
+
+function placeOrder(item, callback) {
+    console.log(`Hi ! Your order of ${item} is placed. Wait for the item to be ready....`);
+    callback();
+}
+
+// 1st Method — pass a named function
+placeOrder("Burger", printMSG);
+
+// 2nd Method — pass an anonymous function expression
+placeOrder("Momos", function () {
+    console.log("Hi This is second method.");
+});
+
+// 3rd Method — pass an arrow function (preferred in modern code)
+placeOrder("HoneyChilliPotatoes", () => {
+    console.log("Order ready");
+});
+```
+
+**Key point:** The callback is only *invoked* (never *executed*) at the call site — the outer function decides when to call it.
+
+### Synchronous vs Asynchronous Callbacks
+
+**Synchronous callback** — executes immediately, in order, blocking nothing:
+
+```js
+let resultArray = ["pass", "fail", "fail", "pass", "pass"];
+
+resultArray.forEach(function (val, idx) {
+    console.log("Test ->> " + idx + " --> " + val);
+});
+
+resultArray.forEach((val, idx) => {
+    console.log("Testing World ->> " + idx + " --> " + val);
+});
+```
+
+**Asynchronous callback** — deferred via `setTimeout`, runs after the rest of the script:
+
+```js
+console.log("Test Started...");
+
+setTimeout(function () {
+    console.log("Test ran successfully");
+}, 5000);
+
+console.log("Moving to next Test");
+
+// Output order:
+// Test Started...
+// Moving to next Test
+// Test ran successfully   ← after 5 seconds
+```
+
+**Key point:** JavaScript is asynchronous in nature — `setTimeout` doesn't block, so the callback fires only after the timer expires, long after the main code finished.
+
+### Callback with Parameters
+
+The outer function can pass data into the callback when it invokes it:
+
+```js
+function calculation(x, y, callback) {
+    console.log(`We have numbers ${x} & ${y}`);
+    let sum = x + y; // 8
+    let sub = x - y; // 2
+    callback(sum, sub);   // pass results to the callback
+}
+
+calculation(5, 3, function (sumx, subx) {
+    console.log("Lets start testing");
+    console.log(sumx + subx); // 8 + 2 = 10
+});
+```
+
+### Callback Hell — Nested Callbacks
+
+Chaining async steps by nesting callbacks creates the dreaded "pyramid of doom" — hard to read and maintain.
+
+```js
+function openBrowser(callback) {
+    console.log("Step 1 : Open Browser");
+    setTimeout(function () { callback(); }, 2000);
+}
+
+function goToLoginPage(callback) {
+    setTimeout(function () {
+        console.log("Step 2 : Login page Loaded");
+        callback();
+    }, 2000);
+}
+
+function enterCredential(callback) {
+    setTimeout(function () {
+        console.log("Step 3 : Entered Credential");
+        callback();
+    }, 2000);
+}
+
+function clickLogin(callback) {
+    setTimeout(function () {
+        console.log("Step4 : Clicking Login.");
+        callback();
+    }, 2000);
+}
+
+openBrowser(function () {
+    goToLoginPage(function () {
+        enterCredential(function () {
+            clickLogin(function () {
+                console.log("Test Complete");
+            });
+        });
+    });
+});
+```
+
+**Key point:** Callback hell is the main reason **Promises** and **async/await** were introduced — they flatten nested callbacks into readable chains.
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `107_callback.js` | Basic callback — 3 ways to pass (named fn, anonymous fn, arrow fn) |
+| `108_callback.js` | Cafe scenario — callback invoked after a long task (table finding) |
+| `109_Timeout_Callback.js` | Async callback with `setTimeout` — non-blocking output order |
+| `110_sync_callback.js` | Synchronous callback — `forEach` with function expression & arrow fn |
+| `111_async_callback.js` | Async callback — `setTimeout` deferred execution |
+| `112_callbackHell.js` | Nested callbacks — login flow pyramid of doom |
+| `113_callbackWithParameters.js` | Callback receiving parameters, `forEach` bug list example |
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Definition | A function passed as an argument, executed later by the outer function |
+| 3 ways to pass | Named function, anonymous function expression, arrow function |
+| Sync callback | Executes immediately, in order (e.g., `forEach`) |
+| Async callback | Deferred (e.g., `setTimeout`) — runs after the main code |
+| Parameters | The outer function can pass values into the callback on invocation |
+| Callback hell | Deeply nested callbacks are unreadable → use Promises/async-await |
+| Playwright relevance | Waits, hooks, and retries rely on callback-based async patterns |
