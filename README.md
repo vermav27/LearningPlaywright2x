@@ -17,6 +17,8 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Object fundamentals: creation, access, reference behavior, properties, methods, destructuring, spread, nesting, getters/setters, Object.keys/values/entries, and for...in loops
 - 2D Array fundamentals: creation, nested loop iteration, row-wise operations with `map`+`reduce`, and practical filtering (e.g., extracting failed test names from a test suite matrix)
 - Callback fundamentals: passing callbacks (named, anonymous, arrow), synchronous vs asynchronous callbacks with `setTimeout`, callbacks with parameters, and callback hell (nested callbacks)
+- Promise fundamentals: promise creation with `resolve`/`reject`, states, `.then()`/`.catch()`/`.finally()`, solving callback hell with promise chaining, `Promise.all()`, and `Promise.allSettled()`
+- Async/Await fundamentals: `async` functions, `await` on promises, `try`/`catch`/`finally` error handling, solving callback hell with sequential async/await, sequential awaited API calls, and parallel calls with `Promise.all` / `Promise.allSettled` + destructuring
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -167,6 +169,24 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 111_async_callback.js
   - 112_callbackHell.js
   - 113_callbackWithParameters.js
+
+- chapter_17_promises/ - promise fundamentals: creation with resolve/reject, states, .then()/.catch()/.finally(), promise chaining, Promise.all(), and Promise.allSettled()
+  - 114_promise.js
+  - 115_realAPIPromise.js
+  - 116_realAPIPromise_Part2.js
+  - 117_realAPIPromise_Part3.js
+  - 118_callbackHellProblemSolved.js
+  - 119_promiseALL.js
+  - 120_promiseAllSettled.js
+
+- chapter_18_Async_Await/ - async/await fundamentals: async functions, await on promises, try/catch/finally, solving callback hell, sequential awaited API calls, and parallel calls with Promise.all / Promise.allSettled
+  - 121_async.js
+  - 122_async_P2.js
+  - 123_PyramidOfDoom_Solution.js
+  - 124_async_P3.js
+  - 125_async_await_ex.js
+  - 126_async_await_parallelTest.js
+  - 127_async_allSettled.js
 
 ## How to use
 
