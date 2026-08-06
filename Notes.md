@@ -2042,3 +2042,411 @@ openBrowser(function () {
 | Parameters | The outer function can pass values into the callback on invocation |
 | Callback hell | Deeply nested callbacks are unreadable → use Promises/async-await |
 | Playwright relevance | Waits, hooks, and retries rely on callback-based async patterns |
+
+---
+
+## 31. Promises
+
+A **Promise** is an object representing the eventual completion (or failure) of an asynchronous operation. It is the modern replacement for callback hell — it returns a placeholder that will *eventually* hold a value, and lets you chain `.then()`, `.catch()`, and `.finally()` instead of nesting callbacks.
+
+### Creating a Promise
+
+A promise is created with `new Promise(executor)`. The executor receives two functions — `resolve` (call on success) and `reject` (call on failure).
+
+```js
+let order = new Promise(function (resolve, reject) {
+    let foodReady = true;
+    if (foodReady) {
+        resolve("Order is completed");
+    } else {
+        reject("Order cancelled");
+    }
+});
+
+console.log(order); // Promise { <pending> } → resolved value
+```
+
+### Promise States
+
+| State | Meaning |
+|---|---|
+| `pending` | Initial state — operation still in progress |
+| `fulfilled` (resolved) | Operation succeeded — `resolve()` was called |
+| `rejected` | Operation failed — `reject()` was called |
+
+**Key point:** A promise is created in the `pending` state and settles (either fulfills or rejects) exactly once.
+
+### .then() — handle success
+
+`.then()` executes only when the promise is **resolved**, and receives the resolved value.
+
+```js
+let apiCall = new Promise(function (resolve, reject) {
+    resolve({
+        status: 200,
+        body: "userdata"
+    })
+});
+
+// .then only executes when promise is resolved successfully
+apiCall.then(function (res) {
+    console.log(res.status); // 200
+})
+```
+
+### .catch() — handle failure
+
+`.catch()` executes only when the promise is **rejected**, and receives the rejection reason.
+
+```js
+let apiCall = new Promise(function (resolve, reject) {
+    reject({
+        status: 500,
+        body: "error fetching data"
+    })
+});
+
+apiCall.then(function (res) {
+    console.log(res.status);
+}).catch(function (res) {
+    console.log(res.body); // "error fetching data"
+})
+```
+
+### .finally() — always runs
+
+`.finally()` executes whether the promise is resolved or rejected — it runs every time. Perfect for cleanup/conclusion steps.
+
+```js
+apiCall.then(function (res) {
+    console.log(res.status);
+}).catch(function (res) {
+    console.log(res.body);
+}).finally(function () {
+    console.log("Concluding test.....");
+})
+```
+
+### Solving Callback Hell with Promises
+
+Each step becomes a function that **returns a promise**. Steps are chained with `.then()`, each returning the next step's promise — flattening the pyramid of doom into a readable chain.
+
+```js
+function openBrowser() {
+    return new Promise(function (resolve, reject) {
+        console.log("Opening Browser.....");
+        let openingBrowser = true;
+        if (openingBrowser) {
+            resolve("Browser Opened");
+        } else {
+            reject("Issue Opening Browser");
+        }
+    })
+}
+
+function goToLoginPage() { /* returns a promise */ }
+function enterCredentials() { /* returns a promise */ }
+function clickLoginButton() { /* returns a promise */ }
+
+openBrowser().then(function (msg) {
+    console.log("Browser successfully Opened");
+    return goToLoginPage();
+}).then(function (msg) {
+    console.log(msg);
+    return enterCredentials();
+}).then(function (msg) {
+    return clickLoginButton();
+}).catch(function (msg) {
+    console.log("Error Occured !");
+}).finally(function () {
+    console.log("Test case execution completed.");
+})
+```
+
+**Key point:** Each `.then()` returns the *next* promise so the chain continues. A single `.catch()` at the end handles failures from any step.
+
+### Promise.all() — wait for all to resolve
+
+`Promise.all([...])` executes its callback only when **all** promises resolve. If any rejects, the whole thing goes to `.catch()`.
+
+```js
+let checkAuthentication = Promise.resolve("Auth Done.");
+let checkDBconnection = Promise.resolve("DB check done");
+let checkCredentials = Promise.resolve("Credential Check Done.")
+
+Promise.all([checkAuthentication, checkDBconnection, checkCredentials]).then(function (result) {
+    console.log("All check Done.");
+    console.log(result); // ["Auth Done.", "DB check done", "Credential Check Done."]
+}).catch(function (msg) {
+    console.log(msg);
+})
+```
+
+### Promise.allSettled() — wait for all to settle
+
+`Promise.allSettled([...])` runs once **every** promise has settled — resolved *or* rejected. It never short-circuits, so you can see all outcomes at once.
+
+```js
+let checkAuthentication = Promise.resolve("Auth Done.");
+let checkDBconnection = Promise.reject("DB check fail");
+let checkCredentials = Promise.resolve("Credential Check Done.")
+
+Promise.allSettled([checkAuthentication, checkDBconnection, checkCredentials]).then(function (result) {
+    console.log("All check Performed.");
+    console.log(result);
+    // [{status: "fulfilled", value: "Auth Done."},
+    //  {status: "rejected", reason: "DB check fail"},
+    //  {status: "fulfilled", value: "Credential Check Done."}]
+})
+```
+
+### Quick Comparison
+
+| Method | Runs callback when | Fails fast? |
+|---|---|---|
+| `Promise.all()` | **All** resolve | ✅ Yes — first rejection skips to `.catch()` |
+| `Promise.allSettled()` | **All** settle (resolve or reject) | ❌ No — waits for every outcome |
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `114_promise.js` | Promise creation with `resolve`/`reject`, states overview |
+| `115_realAPIPromise.js` | `.then()` on a resolved API-style promise (status 200) |
+| `116_realAPIPromise_Part2.js` | `.catch()` on a rejected promise (status 500) |
+| `117_realAPIPromise_Part3.js` | `.finally()` — always runs after then/catch |
+| `118_callbackHellProblemSolved.js` | Login flow rewritten with promise chaining (vs callback hell) |
+| `119_promiseALL.js` | `Promise.all()` — runs when every promise resolves |
+| `120_promiseAllSettled.js` | `Promise.allSettled()` — runs when every promise settles |
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Definition | Object representing eventual success/failure of an async operation |
+| States | `pending` → `fulfilled` or `rejected` |
+| `.then()` | Runs on success, receives resolved value |
+| `.catch()` | Runs on failure, receives rejection reason |
+| `.finally()` | Always runs — cleanup/conclusion |
+| Chaining | Return the next promise from `.then()` to keep the chain going |
+| `Promise.all()` | All must resolve; fails fast on first rejection |
+| `Promise.allSettled()` | Waits for all to settle; reports every outcome |
+
+---
+
+## 32. Async / Await
+
+**async/await** is syntactic sugar over Promises — it lets you write asynchronous code that reads like synchronous code. `async` marks a function as returning a promise; `await` pauses the function until a promise settles. This is the cleanest solution to callback hell and the modern standard for Playwright test flows.
+
+### The async keyword
+
+An `async` function always returns a Promise. Whatever value you `return`, it is wrapped into a resolved promise automatically.
+
+```js
+async function getResult() {
+    let x = 10;
+    let y = 20;
+    let sum = x + y;
+    return sum;
+}
+
+getResult().then(function (res) {
+    console.log(res); // 30 — a plain return is wrapped in a resolved Promise
+});
+```
+
+**Key point:** You don't need `new Promise(...)` to return a promise from an `async` function — a plain return value is auto-wrapped.
+
+### The await keyword
+
+`await` pauses the execution of the `async` function until the awaited promise settles, then resumes with its resolved value. It can only be used inside an `async` function.
+
+```js
+async function getToken() {
+    return Promise.resolve("sfsdkfjabvi475oa8vyvbyoqvyb4v");
+}
+
+async function run() {
+    let result = await getToken();
+    console.log(result); // "sfsdkfjabvi475oa8vyvbyoqvyb4v"
+}
+
+run();
+```
+
+### try / catch / finally with await
+
+Because `await` is synchronous-looking, errors are handled with familiar `try`/`catch`/`finally` blocks instead of `.catch()`/`.finally()`.
+
+```js
+async function testapi() {
+    try {
+        let result = await Promise.reject("504 error");
+    }
+    catch (error) {
+        console.log("Error :", error); // "504 error"
+    }
+    finally {
+        console.log("Clean up");
+    }
+}
+
+testapi();
+```
+
+### Solving Callback Hell with async/await
+
+The same login flow from the Promises chapter, rewritten with async/await — each step is `await`ed sequentially, in order, with no nesting and no `.then()` chains.
+
+```js
+async function openBrowser() {
+    return new Promise(function (resolve, reject) { /* ... */ })
+}
+
+async function goToLoginPage() { /* returns a promise */ }
+async function enterCredentials() { /* returns a promise */ }
+async function clickLoginButton() { /* returns a promise */ }
+
+// run e2e test
+async function e2eTest() {
+
+    let msg1 = await openBrowser();
+    console.log(msg1);
+    let msg2 = await goToLoginPage();
+    console.log(msg2);
+    let msg3 = await enterCredentials();
+    console.log(msg3);
+    let msg4 = await clickLoginButton();
+    console.log(msg4);
+
+}
+
+e2eTest();
+```
+
+**Key point:** `await` makes each step wait for the previous one — the code reads top-to-bottom like a synchronous script, but never blocks the main thread.
+
+### Real-World Example — Sequential API Calls
+
+Awaiting multiple API calls in sequence, one after another:
+
+```js
+function apiCall(callFor) {
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve({
+                callFor: `${callFor}`,
+                status: "200 OK"
+            });
+        }, 3000)
+    })
+}
+
+async function testRun() {
+
+    let t1 = await apiCall("Login");
+    console.log(t1);
+
+    let t2 = await apiCall("Dashboard");
+    console.log(t2);
+
+    let t3 = await apiCall("Execution");
+    console.log(t3);
+
+    let t4 = await apiCall("checkout");
+    console.log(t4);
+
+}
+
+testRun();
+```
+
+### Parallel API Calls with Promise.all + destructuring
+
+`await` can be used on `Promise.all([...])` to wait for multiple API calls that run **in parallel** (rather than one after another). Array destructuring unpacks each resolved value into its own variable.
+
+```js
+function apiCall(callFor) {
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve({
+                callFor: `${callFor}`,
+                status: "200 OK"
+            });
+        }, 3000)
+    })
+}
+
+async function testRun() {
+
+    let [r1, r2, r3] = await Promise.all([
+        apiCall("Login..."),
+        apiCall("Execution...."),
+        apiCall("Dashboard...")
+    ])
+
+    console.log(r1);
+    console.log(r2);
+    console.log(r3);
+
+}
+
+testRun();
+```
+
+**Key point:** With sequential `await`, 3 calls take ~9s (3s each, one after another). With `await Promise.all([...])`, all 3 start at the same time and finish in ~3s total. The `await` result is an array, so `let [r1, r2, r3] =` maps each promise's result to a variable by position.
+
+### Parallel API Calls with Promise.allSettled + destructuring
+
+The same parallel pattern using `Promise.allSettled` — it waits for every promise to settle (resolve *or* reject), so each result is a `{status, value/reason}` object.
+
+```js
+async function testRun() {
+
+    let [r1, r2, r3] = await Promise.allSettled([
+        apiCall("Login..."),
+        apiCall("Execution...."),
+        apiCall("Dashboard...")
+    ])
+
+    console.log(r1);
+    console.log(r2);
+    console.log(r3);
+
+}
+```
+
+**Key point:** `Promise.allSettled` never fails fast — even if one call rejects, the others still run and all outcomes are reported. With `Promise.all`, a single rejection skips straight to the error handler.
+
+### Async/Await vs Promises vs Callbacks
+
+| Approach | Readability | Error handling | Best for |
+|---|---|---|---|
+| Callbacks | ❌ Nested "pyramid of doom" | Passed into each callback | Legacy code |
+| Promises | ✅ Chain of `.then()` | `.catch()` at end of chain | Multi-step async flows |
+| Async/Await | ✅✅ Reads like sync code | `try`/`catch`/`finally` | Clean sequential async code |
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `121_async.js` | `async` + `await` with `try`/`catch`/`finally` on a rejected promise |
+| `122_async_P2.js` | `await` on a resolved promise — token retrieval example |
+| `123_PyramidOfDoom_Solution.js` | Login flow rewritten with async/await (no nesting, no chains) |
+| `124_async_P3.js` | `async` function returning a plain value — auto-wrapped into a promise |
+| `125_async_await_ex.js` | Sequential awaited API calls (Login → Dashboard → Execution → checkout) |
+| `126_async_await_parallelTest.js` | Parallel API calls with `await Promise.all([...])` + array destructuring |
+| `127_async_allSettled.js` | Parallel API calls with `await Promise.allSettled([...])` + array destructuring |
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| `async` | Marks a function; it always returns a Promise (return values are auto-wrapped) |
+| `await` | Pauses execution until the promise settles; only valid inside `async` functions |
+| Error handling | `try`/`catch`/`finally` replaces `.catch()`/`.finally()` |
+| Sequential flow | `await` steps run top-to-bottom — no nesting, no chains |
+| Parallel flow | `await Promise.all([...])` / `Promise.allSettled([...])` run calls in parallel |
+| Destructuring | `let [a, b, c] = await Promise.all([...])` maps results to variables by position |
+| Callback hell | async/await is the cleanest, most readable solution |
+| Playwright relevance | Playwright's async API (page, locator actions) is typically awaited in test code |
