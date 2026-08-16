@@ -2450,3 +2450,85 @@ async function testRun() {
 | Destructuring | `let [a, b, c] = await Promise.all([...])` maps results to variables by position |
 | Callback hell | async/await is the cleanest, most readable solution |
 | Playwright relevance | Playwright's async API (page, locator actions) is typically awaited in test code |
+
+---
+
+## 33. Playwright Basics
+
+Playwright is an end-to-end testing framework from Microsoft. Tests run in real browsers (Chromium, Firefox, WebKit) and are written with the `@playwright/test` runner — every test is an `async` function receiving a `{ page }` fixture, and all browser interactions are `await`ed.
+
+### Test Structure
+
+A test file imports `test` and `expect`, then defines one or more `test(...)` blocks. The `page` fixture gives you a fresh browser page per test.
+
+```js
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+    await page.goto('https://app.thetestingacademy.com/playwright/ttacart/');
+    // ... steps
+});
+```
+
+### Locators & Actions
+
+`page.locator(selector)` targets an element, then actions like `click()` and `fill()` interact with it. Using `data-test` attributes keeps selectors stable and independent of CSS class changes.
+
+```js
+await page.locator('[data-test="username"]').click();
+await page.locator('[data-test="username"]').fill('abc');
+await page.locator('[data-test="password"]').fill('abc@1234');
+await page.locator('[data-test="login-button"]').click();
+```
+
+### Assertions
+
+`expect(...)` auto-waits and retries until the condition is met — Playwright assertions are asynchronous and must be `await`ed.
+
+```js
+await expect(page.locator('[data-test="error"]')).toContainText(
+    'Epic sadface: Username and password do not match any user in this service'
+);
+await expect(page.locator('h1')).toContainText('TTACart');
+```
+
+### Config & Scripts
+
+`playwright.config.js` points the runner at the chapter directory, matching `**/*.js` while ignoring `node_modules` and the config itself:
+
+```js
+module.exports = {
+  testDir: '.',
+  testMatch: '**/*.js',
+  testIgnore: ['**/node_modules/**', 'playwright.config.js'],
+};
+```
+
+Run tests from inside `chapter_19_playwright_Basics/`:
+
+```bash
+npm test                # run all Playwright tests
+npm run test:tta-cart   # run only the tta-cart test
+```
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `package.json` | Scripts (`npm test`, `test:tta-cart`) and `@playwright/test` devDependency |
+| `package-lock.json` | Locked dependency versions |
+| `playwright.config.js` | Test config — testDir `.`, match `**/*.js`, ignore `node_modules` |
+| `tta-cart.js` | Login test on the TTACart demo app — data-test locators, click/fill, error + heading assertions |
+| `sdet.pdf` | Reference material |
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Runner | `@playwright/test` — tests are `async` functions with a `{ page }` fixture |
+| Navigation | `await page.goto(url)` loads a page and waits for it |
+| Locators | `page.locator('[data-test="..."]')` — prefer stable data-test attributes |
+| Actions | `click()`, `fill()` — all interactions are awaited |
+| Assertions | `await expect(...).toContainText(...)` — auto-waiting, auto-retrying |
+| Config | `testDir`, `testMatch`, `testIgnore` control what the runner picks up |
+| Relevance | Builds directly on the async/await patterns from the previous chapters |

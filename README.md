@@ -19,6 +19,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Callback fundamentals: passing callbacks (named, anonymous, arrow), synchronous vs asynchronous callbacks with `setTimeout`, callbacks with parameters, and callback hell (nested callbacks)
 - Promise fundamentals: promise creation with `resolve`/`reject`, states, `.then()`/`.catch()`/`.finally()`, solving callback hell with promise chaining, `Promise.all()`, and `Promise.allSettled()`
 - Async/Await fundamentals: `async` functions, `await` on promises, `try`/`catch`/`finally` error handling, solving callback hell with sequential async/await, sequential awaited API calls, and parallel calls with `Promise.all` / `Promise.allSettled` + destructuring
+- Playwright basics: first Playwright test with `@playwright/test`, page navigation, locator actions (click/fill), assertions, and a dedicated Playwright config
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -187,6 +188,13 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 125_async_await_ex.js
   - 126_async_await_parallelTest.js
   - 127_async_allSettled.js
+
+- chapter_19_playwright_Basics/ - Playwright basics: first end-to-end test with @playwright/test, page navigation, locator actions, and assertions
+  - package.json — Playwright test scripts (`npm test`, `npm run test:tta-cart`) and @playwright/test dependency
+  - package-lock.json
+  - playwright.config.js — test config (testDir `.`, matches `**/*.js`, ignores node_modules)
+  - tta-cart.js — login test against the TTACart demo app with data-test locators and assertions
+  - sdet.pdf — reference material
 
 ## How to use
 
