@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "test": "playwright test",
-    "test:tta-cart": "playwright test tta-cart.js"
+    "test:tta-cart": "playwright test tta-cart.ts"
   },
   "devDependencies": {
-    "@playwright/test": "^1.62.1"
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0"
   }
 }
