@@ -2455,27 +2455,26 @@ async function testRun() {
 
 ## 33. Playwright Basics
 
-Playwright is an end-to-end testing framework from Microsoft. Tests run in real browsers (Chromium, Firefox, WebKit) and are written with the `@playwright/test` runner — every test is an `async` function receiving a `{ page }` fixture, and all browser interactions are `await`ed.
+Playwright is an end-to-end testing framework from Microsoft. Tests run in real browsers and are written with the `@playwright/test` runner. In this project, the Playwright chapter now uses TypeScript test files (`.spec.ts`) inside the `tests/` folder.
 
 ### Test Structure
 
-A test file imports `test` and `expect`, then defines one or more `test(...)` blocks. The `page` fixture gives you a fresh browser page per test.
+A Playwright test imports `test` and `expect`, then defines one or more `test(...)` blocks. The `page` fixture gives a fresh browser page, and browser actions must be awaited.
 
-```js
+```ts
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
-    await page.goto('https://app.thetestingacademy.com/playwright/ttacart/');
-    // ... steps
+test("Verify that the title will be TTA Cart", async ({ page }) => {
+  await page.goto("https://app.thetestingacademy.com/playwright/ttacart/");
+  await expect(page.locator('h1')).toContainText('TTACart');
 });
 ```
 
 ### Locators & Actions
 
-`page.locator(selector)` targets an element, then actions like `click()` and `fill()` interact with it. Using `data-test` attributes keeps selectors stable and independent of CSS class changes.
+`page.locator(selector)` targets an element. Actions like `click()` and `fill()` interact with the element. Stable attributes such as `data-test` are good for automation because they do not usually change with CSS styling.
 
-```js
-await page.locator('[data-test="username"]').click();
+```ts
 await page.locator('[data-test="username"]').fill('abc');
 await page.locator('[data-test="password"]').fill('abc@1234');
 await page.locator('[data-test="login-button"]').click();
@@ -2483,52 +2482,172 @@ await page.locator('[data-test="login-button"]').click();
 
 ### Assertions
 
-`expect(...)` auto-waits and retries until the condition is met — Playwright assertions are asynchronous and must be `await`ed.
+`expect(...)` auto-waits and retries until the condition is met. Playwright assertions are asynchronous, so they should be awaited.
 
-```js
+```ts
 await expect(page.locator('[data-test="error"]')).toContainText(
     'Epic sadface: Username and password do not match any user in this service'
 );
+
 await expect(page.locator('h1')).toContainText('TTACart');
 ```
 
 ### Config & Scripts
 
-`playwright.config.js` points the runner at the chapter directory, matching `**/*.js` while ignoring `node_modules` and the config itself:
+`playwright.config.ts` points the runner at the `tests/` folder, runs Chromium, stores test artifacts in `test-results`, and uses the HTML reporter.
 
-```js
-module.exports = {
-  testDir: '.',
-  testMatch: '**/*.js',
-  testIgnore: ['**/node_modules/**', 'playwright.config.js'],
-};
+```ts
+export default defineConfig({
+  testDir: './tests',
+  reporter: 'html',
+  outputDir: 'test-results',
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+  ],
+});
 ```
 
 Run tests from inside `chapter_19_playwright_Basics/`:
 
 ```bash
-npm test                # run all Playwright tests
-npm run test:tta-cart   # run only the tta-cart test
+npm test
+npm run test:tta-cart
+npx playwright test tests/example.spec.ts
 ```
+
+### Playwright Commands & Modes
+
+Run these commands from inside `chapter_19_playwright_Basics/`, because that folder contains the Playwright package, config, and tests.
+
+| Command | Usage |
+|---|---|
+| `npx playwright codegen "https://app.thetestingacademy.com/playwright/ttacart/"` | Opens the browser and records user actions. Playwright generates locator/action code from the steps you perform. |
+| `npx playwright open "https://app.thetestingacademy.com/playwright/ttacart/"` | Opens a URL in a Playwright-managed browser for manual exploration. |
+| `PWDEBUG=1 npx playwright test tests/example.spec.ts` | Runs a test in debug mode using the `PWDEBUG` environment variable. It opens the Playwright Inspector and runs headed with timeout disabled. |
+| `npx playwright test tests/example.spec.ts --debug` | Shortcut for debug mode. Use this instead of `npx playwright open "url" --debug`, because `--debug` is a test-runner option. |
+| `npx playwright test tests/example.spec.ts --headed` | Runs the test in a visible browser instead of headless mode. Useful when you want to watch the browser actions. |
+| `npx playwright show-report` | Opens the latest HTML report generated after a test run. |
+| `npx playwright test tests/example.spec.ts --headed --project="firefox"` | Runs the selected test in headed mode on the Firefox project. This works only if `firefox` is configured inside `projects` in `playwright.config.ts`. |
+| `npx playwright test tests/example.spec.ts --ui` | Opens Playwright UI mode, where you can select, run, debug, and inspect tests interactively. |
+
+Correct command pattern:
+
+```bash
+npx playwright test <filename> [options]
+```
+
+Examples:
+
+```bash
+npx playwright test tests/example.spec.ts --headed
+npx playwright test tests/codegen_tta-cart.spec.ts --debug
+npx playwright test tests/example.spec.ts --ui
+npx playwright test tests/example.spec.ts --headed --project="chromium"
+```
+
+Important notes:
+
+- `codegen` is for recording actions and generating code.
+- `open` is for opening a URL manually in a Playwright browser.
+- `test` is for running test files.
+- `--headed`, `--debug`, `--ui`, and `--project` are used with `npx playwright test`.
+- The current config has a `chromium` project. To use `--project="firefox"`, add a Firefox project in `playwright.config.ts`.
 
 ### Files in this Chapter
 
 | File | Description |
 |---|---|
-| `package.json` | Scripts (`npm test`, `test:tta-cart`) and `@playwright/test` devDependency |
+| `package.json` | Playwright scripts and dev dependencies (`@playwright/test`, `@types/node`) |
 | `package-lock.json` | Locked dependency versions |
-| `playwright.config.js` | Test config — testDir `.`, match `**/*.js`, ignore `node_modules` |
-| `tta-cart.js` | Login test on the TTACart demo app — data-test locators, click/fill, error + heading assertions |
+| `playwright.config.ts` | TypeScript Playwright config using `testDir: './tests'`, Chromium, HTML reporter, and `test-results` output |
+| `tests/example.spec.ts` | Simple TTACart page navigation test with heading assertion |
+| `tests/codegen_tta-cart.spec.ts` | TTACart login error test with username/password locators and assertions |
 | `sdet.pdf` | Reference material |
 
 ### Key Takeaways
 
 | Concept | Key Point |
 |---|---|
-| Runner | `@playwright/test` — tests are `async` functions with a `{ page }` fixture |
-| Navigation | `await page.goto(url)` loads a page and waits for it |
-| Locators | `page.locator('[data-test="..."]')` — prefer stable data-test attributes |
-| Actions | `click()`, `fill()` — all interactions are awaited |
-| Assertions | `await expect(...).toContainText(...)` — auto-waiting, auto-retrying |
-| Config | `testDir`, `testMatch`, `testIgnore` control what the runner picks up |
-| Relevance | Builds directly on the async/await patterns from the previous chapters |
+| Runner | `@playwright/test` runs TypeScript specs directly |
+| Test files | Use `.spec.ts` naming inside the `tests/` folder |
+| Navigation | `await page.goto(url)` must be awaited |
+| Locators | `page.locator('[data-test="..."]')` is preferred for stable selectors |
+| Actions | `click()`, `fill()`, and similar browser interactions are awaited |
+| Assertions | `await expect(...).toContainText(...)` auto-waits and retries |
+| Config | `testDir`, `projects`, `reporter`, and `outputDir` control how tests run |
+
+---
+
+## 34. TypeScript Basics: Export & Import
+
+The `chatper_20_Typescript_Basics/` chapter introduces ES module export/import syntax. The examples use `.js` files, but the concepts are the same in TypeScript.
+
+### Named Exports
+
+Named exports are useful when one file exports multiple values or functions. The import name must match the exported name unless an alias is used.
+
+```js
+// testUtils.js
+export let BASE_URL = "https://app.thetestingacademy.com/playwright/ttacart/";
+
+export function formatTestName(name) {
+    return name.toUpperCase();
+}
+
+export let name = "Vineet";
+```
+
+Importing named exports:
+
+```js
+import { BASE_URL, formatTestName, name } from "../testUtils.js";
+```
+
+Importing named exports with aliases:
+
+```js
+import { BASE_URL as baseUrl, formatTestName as conversion } from "../testUtils.js";
+```
+
+### Default Export
+
+A default export is used when a file has one main thing to export. It is imported without curly braces.
+
+```js
+// logger.js
+export default function log1(message) {
+    console.log("[LOG] - DEF - " + message)
+}
+```
+
+Importing a default export:
+
+```js
+import log1 from "../logger.js";
+
+log1("Starting test case");
+```
+
+### Default Export vs Named Export
+
+| Default Export | Named Export |
+|---|---|
+| One default export is allowed per file | Multiple named exports are allowed |
+| Imported without curly braces | Imported with curly braces |
+| Imported name can be changed freely | Imported name must match, unless an alias is used |
+| Good for the main thing from a file | Good for utility files with many exports |
+| Example: `import log1 from "../logger.js"` | Example: `import { BASE_URL } from "../testUtils.js"` |
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `testUtils.js` | Named exports: `BASE_URL`, `formatTestName`, and `name` |
+| `logger.js` | Default export `log1` and named export `log2` |
+| `EXPORT_IMPORT/128_EXPORT_IMPORT.js` | Imports named exports from `testUtils.js` |
+| `EXPORT_IMPORT/129_Utils.js` | Imports named exports using aliases |
+| `EXPORT_IMPORT/130_Logger.js` | Imports the default export from `logger.js` |
+| `EXPORT_IMPORT/Explaindefault.md` | Notes explaining default exports, named exports, and their differences |

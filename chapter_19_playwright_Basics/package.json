@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "test": "playwright test",
-    "test:tta-cart": "playwright test tta-cart.ts"
+    "test:tta-cart": "playwright test tests/codegen_tta-cart.spec.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
