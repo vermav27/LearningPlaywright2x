@@ -1,6 +1,6 @@
 # LearningPlaywright2x
 
-This repository is a beginner-friendly learning project focused on JavaScript fundamentals, with room to grow into Playwright-based automation topics.
+This repository is a beginner-friendly learning project focused on JavaScript fundamentals, Playwright automation basics, and TypeScript-style module concepts.
 
 ## What is included
 
@@ -19,7 +19,8 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Callback fundamentals: passing callbacks (named, anonymous, arrow), synchronous vs asynchronous callbacks with `setTimeout`, callbacks with parameters, and callback hell (nested callbacks)
 - Promise fundamentals: promise creation with `resolve`/`reject`, states, `.then()`/`.catch()`/`.finally()`, solving callback hell with promise chaining, `Promise.all()`, and `Promise.allSettled()`
 - Async/Await fundamentals: `async` functions, `await` on promises, `try`/`catch`/`finally` error handling, solving callback hell with sequential async/await, sequential awaited API calls, and parallel calls with `Promise.all` / `Promise.allSettled` + destructuring
-- Playwright basics: first Playwright test with `@playwright/test`, page navigation, locator actions (click/fill), assertions, and a dedicated Playwright config
+- Playwright basics: TypeScript Playwright specs with `@playwright/test`, page navigation, locator actions (click/fill), assertions, Chromium project config, HTML reports, and test result output
+- TypeScript basics: ES module export/import examples, named exports, default exports, aliases, and notes comparing default vs named exports
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -189,12 +190,23 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 126_async_await_parallelTest.js
   - 127_async_allSettled.js
 
-- chapter_19_playwright_Basics/ - Playwright basics: first end-to-end test with @playwright/test, page navigation, locator actions, and assertions
-  - package.json — Playwright test scripts (`npm test`, `npm run test:tta-cart`) and @playwright/test dependency
+- chapter_19_playwright_Basics/ - Playwright basics with TypeScript specs, Chromium config, page navigation, locator actions, and assertions
+  - .gitignore — ignores Playwright generated folders such as node_modules, test-results, playwright-report, blob-report, and cache/auth folders
+  - .github/workflows/playwright.yml — generated GitHub Actions workflow for Playwright test runs
+  - package.json — Playwright test scripts (`npm test`, `npm run test:tta-cart`) and dev dependencies
   - package-lock.json
-  - playwright.config.js — test config (testDir `.`, matches `**/*.js`, ignores node_modules)
-  - tta-cart.js — login test against the TTACart demo app with data-test locators and assertions
+  - playwright.config.ts — TypeScript config using `testDir: './tests'`, Chromium, HTML reporter, and `test-results` output
+  - tests/example.spec.ts — basic TTACart navigation test with heading assertion
+  - tests/codegen_tta-cart.spec.ts — login error test against the TTACart demo app with data-test locators and assertions
   - sdet.pdf — reference material
+
+- chatper_20_Typescript_Basics/ - TypeScript basics focused on ES module export/import syntax
+  - testUtils.js — named exports: `BASE_URL`, `formatTestName`, and `name`
+  - logger.js — default export `log1` and named export `log2`
+  - EXPORT_IMPORT/128_EXPORT_IMPORT.js — imports named exports from `testUtils.js`
+  - EXPORT_IMPORT/129_Utils.js — imports named exports with aliases
+  - EXPORT_IMPORT/130_Logger.js — imports the default export from `logger.js`
+  - EXPORT_IMPORT/Explaindefault.md — notes and comparison table for default export vs named export
 
 ## How to use
 
@@ -202,6 +214,17 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 2. Read the comments and example code carefully.
 3. Run the files using Node.js to observe the output.
 4. Use the notes in the chapter folders as a reference while learning.
-5. Practice by modifying the examples and experimenting.
+5. For Playwright examples, run commands from inside `chapter_19_playwright_Basics/`.
+6. Practice by modifying the examples and experimenting.
 
-This project is intended for learning and practice purposes, and it currently focuses on JavaScript fundamentals.
+## Running Playwright Tests
+
+From inside `chapter_19_playwright_Basics/`:
+
+```bash
+npm test
+npm run test:tta-cart
+npx playwright test tests/example.spec.ts
+```
+
+This project is intended for learning and practice purposes, and it currently covers JavaScript fundamentals, Playwright basics, and module export/import concepts.
