@@ -1,6 +1,6 @@
 # LearningPlaywright2x
 
-This repository is a beginner-friendly learning project focused on JavaScript fundamentals, Playwright automation basics, and TypeScript-style module concepts.
+This repository is a beginner-friendly learning project focused on JavaScript fundamentals, Playwright automation basics, and OOPS/module concepts.
 
 ## What is included
 
@@ -20,7 +20,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Promise fundamentals: promise creation with `resolve`/`reject`, states, `.then()`/`.catch()`/`.finally()`, solving callback hell with promise chaining, `Promise.all()`, and `Promise.allSettled()`
 - Async/Await fundamentals: `async` functions, `await` on promises, `try`/`catch`/`finally` error handling, solving callback hell with sequential async/await, sequential awaited API calls, and parallel calls with `Promise.all` / `Promise.allSettled` + destructuring
 - Playwright basics: TypeScript Playwright specs with `@playwright/test`, page navigation, locator actions (click/fill), assertions, Chromium project config, HTML reports, and test result output
-- TypeScript basics: ES module export/import examples, named exports, default exports, aliases, and notes comparing default vs named exports
+- OOPS basics: ES module export/import examples, named exports, default exports, aliases, classes, objects, constructors, private fields, and static members
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -200,13 +200,19 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - tests/codegen_tta-cart.spec.ts — login error test against the TTACart demo app with data-test locators and assertions
   - sdet.pdf — reference material
 
-- chatper_20_Typescript_Basics/ - TypeScript basics focused on ES module export/import syntax
+- chatper_20_OOPS_Basics/ - OOPS basics covering module exports/imports and class/object concepts
   - testUtils.js — named exports: `BASE_URL`, `formatTestName`, and `name`
   - logger.js — default export `log1` and named export `log2`
-  - EXPORT_IMPORT/128_EXPORT_IMPORT.js — imports named exports from `testUtils.js`
-  - EXPORT_IMPORT/129_Utils.js — imports named exports with aliases
-  - EXPORT_IMPORT/130_Logger.js — imports the default export from `logger.js`
-  - EXPORT_IMPORT/Explaindefault.md — notes and comparison table for default export vs named export
+  - 01_EXPORT_IMPORT/128_EXPORT_IMPORT.js — imports named exports from `testUtils.js`
+  - 01_EXPORT_IMPORT/129_Utils.js — imports named exports with aliases
+  - 01_EXPORT_IMPORT/130_Logger.js — imports the default export from `logger.js`
+  - 01_EXPORT_IMPORT/Explaindefault.md — notes and comparison table for default export vs named export
+  - 02_CLASS_OBJECT/131_Class_Object.js — basic class blueprint with attributes and methods
+  - 02_CLASS_OBJECT/132_Class_Object_2.js — constructor basics and object creation
+  - 02_CLASS_OBJECT/133_Car.js — constructor parameters, `this`, and instance methods
+  - 02_CLASS_OBJECT/134_RealBrowser.js — practical `Testcase` class example and method vs function
+  - 02_CLASS_OBJECT/135_Private_Public.js — public vs private fields using `#`
+  - 02_CLASS_OBJECT/136_Static.js — static properties vs instance properties
 
 ## How to use
 
@@ -227,4 +233,4 @@ npm run test:tta-cart
 npx playwright test tests/example.spec.ts
 ```
 
-This project is intended for learning and practice purposes, and it currently covers JavaScript fundamentals, Playwright basics, and module export/import concepts.
+This project is intended for learning and practice purposes, and it currently covers JavaScript fundamentals, Playwright basics, export/import patterns, and OOPS fundamentals.

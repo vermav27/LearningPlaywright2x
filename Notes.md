@@ -2581,9 +2581,9 @@ Important notes:
 
 ---
 
-## 34. TypeScript Basics: Export & Import
+## 34. OOPS Basics: Export & Import
 
-The `chatper_20_Typescript_Basics/` chapter introduces ES module export/import syntax. The examples use `.js` files, but the concepts are the same in TypeScript.
+The `chatper_20_OOPS_Basics/01_EXPORT_IMPORT/` chapter introduces ES module export/import syntax. These examples use `.js` files and show both named exports and default exports with practical test-automation style values.
 
 ### Named Exports
 
@@ -2647,7 +2647,140 @@ log1("Starting test case");
 |---|---|
 | `testUtils.js` | Named exports: `BASE_URL`, `formatTestName`, and `name` |
 | `logger.js` | Default export `log1` and named export `log2` |
-| `EXPORT_IMPORT/128_EXPORT_IMPORT.js` | Imports named exports from `testUtils.js` |
-| `EXPORT_IMPORT/129_Utils.js` | Imports named exports using aliases |
-| `EXPORT_IMPORT/130_Logger.js` | Imports the default export from `logger.js` |
-| `EXPORT_IMPORT/Explaindefault.md` | Notes explaining default exports, named exports, and their differences |
+| `01_EXPORT_IMPORT/128_EXPORT_IMPORT.js` | Imports named exports from `testUtils.js` |
+| `01_EXPORT_IMPORT/129_Utils.js` | Imports named exports using aliases |
+| `01_EXPORT_IMPORT/130_Logger.js` | Imports the default export from `logger.js` |
+| `01_EXPORT_IMPORT/Explaindefault.md` | Notes explaining default exports, named exports, and their differences |
+
+---
+
+## 35. OOPS Basics: Class & Object
+
+The `chatper_20_OOPS_Basics/02_CLASS_OBJECT/` chapter introduces object-oriented programming basics using classes, objects, constructors, methods, private fields, and static members.
+
+### Class and Object
+
+A class is a blueprint. An object is an actual instance created from the class.
+
+```js
+class person {
+    name;
+    email;
+    salary;
+    address;
+
+    sleep() { }
+    eat() { }
+    walk() { }
+}
+```
+
+Here, `person` is the class. When we create an instance using `new person()`, that instance becomes the object.
+
+### Constructor
+
+A constructor runs automatically when an object is created. It is useful for initialization.
+
+```js
+class person {
+    constructor() {
+        console.log("I will be created whenevr the object is created !");
+    }
+}
+
+const obj_person = new person();
+```
+
+### this Keyword
+
+`this` refers to the current object. It is commonly used inside constructors and methods to store or access object-specific values.
+
+```js
+class Car {
+    constructor(name_given_during_obj_creation) {
+        this.name = name_given_during_obj_creation;
+    }
+
+    drive() {
+        console.log(this.name + " <--- This is what i am driving.");
+    }
+}
+```
+
+### Method vs Function
+
+A method is a function inside a class. A normal function is written outside a class.
+
+```js
+class Testcase {
+    display() {
+        console.log("Inside class -> method");
+    }
+}
+
+function f1() {
+    console.log("Outside class -> function");
+}
+```
+
+### Public and Private Fields
+
+JavaScript classes support private fields using `#`. Public fields can be accessed directly, but private fields cannot be accessed outside the class.
+
+```js
+class login {
+    user;
+    #apiKey;
+
+    constructor(username, secret) {
+        this.user = username;
+        this.#apiKey = secret;
+    }
+}
+```
+
+Important point:
+
+- `credential.user` works because `user` is public.
+- `credential.apiKey` does not work because `#apiKey` is private.
+
+### Static Members
+
+Static members belong to the class itself, not to an individual object. They are shared and accessed using the class name.
+
+```js
+class playwright2x {
+    static name = "Playwright 2X";
+    static mentorName = "Pramod Dutta";
+}
+
+console.log(playwright2x.name);
+```
+
+Important point:
+
+- Static values are common for all objects.
+- Non-static values are different for each object.
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `02_CLASS_OBJECT/131_Class_Object.js` | Basic class structure with attributes and methods |
+| `02_CLASS_OBJECT/132_Class_Object_2.js` | Constructor basics and object creation with `new` |
+| `02_CLASS_OBJECT/133_Car.js` | Using `this` to store constructor values and call object methods |
+| `02_CLASS_OBJECT/134_RealBrowser.js` | Practical class example using a `Testcase` object and explaining method vs function |
+| `02_CLASS_OBJECT/135_Private_Public.js` | Public field vs private field using `#apiKey` |
+| `02_CLASS_OBJECT/136_Static.js` | Static properties vs instance properties |
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Class | Blueprint for creating objects |
+| Object | Real instance created with `new` |
+| Constructor | Runs automatically during object creation |
+| `this` | Refers to the current object |
+| Method | Function inside a class |
+| Private field | Declared with `#`, accessible only inside the class |
+| Static member | Belongs to the class, not individual objects |
