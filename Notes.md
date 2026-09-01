@@ -2784,3 +2784,185 @@ Important point:
 | Method | Function inside a class |
 | Private field | Declared with `#`, accessible only inside the class |
 | Static member | Belongs to the class, not individual objects |
+
+---
+
+## 36. OOPS Basics: Encapsulation
+
+Encapsulation means keeping data and the methods that work on that data together inside a class. It also means protecting important data from direct outside access.
+
+In JavaScript, private fields are created using `#`.
+
+```js
+class bank {
+    #balance;
+
+    constructor(bal) {
+        this.#balance = bal;
+    }
+
+    display() {
+        if (this.#balance < 1000) {
+            console.log("Low Balance !");
+        } else {
+            console.log("Balance is ---> " + this.#balance);
+        }
+    }
+}
+
+let myBal = new bank(10000);
+console.log(myBal.balance); // undefined, cannot directly access private field
+myBal.display(); // access through method
+```
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Encapsulation | Combines data and behavior inside a class |
+| Private field | Declared with `#`, such as `#balance` |
+| Data protection | Private data cannot be accessed directly from outside the class |
+| Controlled access | Public methods like `display()` can safely use private data |
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `03_ENCAPSULATION/137_encapsulation.js` | Encapsulation example using private `#balance` and a public `display()` method |
+
+---
+
+## 37. OOPS Basics: Inheritance
+
+Inheritance allows one class to reuse properties and methods from another class. The parent class is also called the base class, and the child class extends it.
+
+### Basic Inheritance
+
+```js
+class BasePage {
+    open() {
+        console.log("Opening the page.");
+    }
+
+    close() {
+        console.log("Closing the page.");
+    }
+}
+
+class LoginPage extends BasePage {
+}
+
+const page = new LoginPage();
+page.open();
+page.close();
+```
+
+Here, `LoginPage` can use `open()` and `close()` because it extends `BasePage`.
+
+### super Keyword
+
+`super` is used to call the parent class constructor or parent class method from the child class.
+
+```js
+class Parent {
+    setup() {
+        console.log("Parent setup");
+    }
+}
+
+class Child extends Parent {
+    setup() {
+        super.setup();
+        console.log("Child setup");
+    }
+}
+```
+
+### Types of Inheritance
+
+| Type | Meaning |
+|---|---|
+| Single inheritance | One child class extends one parent class |
+| Hierarchical inheritance | Multiple child classes extend the same parent class |
+| Multilevel inheritance | A class extends a child class, forming a chain |
+
+### Method Overriding
+
+If a child class has a method with the same name as the parent method, the child method runs. This is called method overriding.
+
+```js
+class BaseTest {
+    setup() {
+        console.log("Base : Open Browser.");
+    }
+}
+
+class APITest extends BaseTest {
+    setup() {
+        console.log("APITEST : Open Browser.");
+    }
+}
+
+const api = new APITest();
+api.setup(); // child class setup runs
+```
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `04_INHERITANCE/138_SingleInheritence.js` | Basic inheritance with `BasePage` and `LoginPage` |
+| `04_INHERITANCE/139_SingleInheritance.js` | Single inheritance with constructor chaining using `super()` |
+| `04_INHERITANCE/140_SingleInheritence.js` | Method overriding example with `BaseTest` and `APITest` |
+| `04_INHERITANCE/141_SuperKeyword.js` | Calling parent behavior from a child class using `super.setup()` |
+| `04_INHERITANCE/142_HieraricalInheritence.js` | Hierarchical inheritance where multiple child classes extend one base class |
+| `04_INHERITANCE/143_MultilevelInheritence.js` | Multilevel inheritance chain across multiple classes |
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Inheritance | Reuses parent class behavior in a child class |
+| `extends` | Creates the parent-child relationship |
+| `super()` | Calls the parent constructor |
+| `super.method()` | Calls a parent method from a child method |
+| Overriding | Child method replaces parent method behavior |
+
+---
+
+## 38. OOPS Basics: Polymorphism
+
+Polymorphism means the same method name can behave differently depending on which object is using it.
+
+In this project, polymorphism is shown through method overriding. The parent class has `setup()`, and the child class also defines `setup()`. When the child object calls `setup()`, the child version runs.
+
+```js
+class BaseTest {
+    setup() {
+        console.log("Base : Open Browser.");
+    }
+}
+
+class APITest extends BaseTest {
+    setup() {
+        console.log("APITEST : Open Browser.");
+    }
+}
+
+const api = new APITest();
+api.setup();
+```
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Polymorphism | Same method name, different behavior |
+| Method overriding | Child class method runs instead of parent class method |
+| Automation use | A common setup method can behave differently for UI tests, API tests, or mobile tests |
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `05_POLYMORPHISM/144_Polymorphism.js` | Polymorphism example using method overriding |

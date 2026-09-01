@@ -20,7 +20,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Promise fundamentals: promise creation with `resolve`/`reject`, states, `.then()`/`.catch()`/`.finally()`, solving callback hell with promise chaining, `Promise.all()`, and `Promise.allSettled()`
 - Async/Await fundamentals: `async` functions, `await` on promises, `try`/`catch`/`finally` error handling, solving callback hell with sequential async/await, sequential awaited API calls, and parallel calls with `Promise.all` / `Promise.allSettled` + destructuring
 - Playwright basics: TypeScript Playwright specs with `@playwright/test`, page navigation, locator actions (click/fill), assertions, Chromium project config, HTML reports, and test result output
-- OOPS basics: ES module export/import examples, named exports, default exports, aliases, classes, objects, constructors, private fields, and static members
+- OOPS basics: ES module export/import examples, named exports, default exports, aliases, classes, objects, constructors, encapsulation, inheritance, polymorphism, private fields, and static members
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -200,7 +200,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - tests/codegen_tta-cart.spec.ts — login error test against the TTACart demo app with data-test locators and assertions
   - sdet.pdf — reference material
 
-- chatper_20_OOPS_Basics/ - OOPS basics covering module exports/imports and class/object concepts
+- chatper_20_OOPS_Basics/ - OOPS basics covering module exports/imports, class/object concepts, encapsulation, inheritance, and polymorphism
   - testUtils.js — named exports: `BASE_URL`, `formatTestName`, and `name`
   - logger.js — default export `log1` and named export `log2`
   - 01_EXPORT_IMPORT/128_EXPORT_IMPORT.js — imports named exports from `testUtils.js`
@@ -213,6 +213,14 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 02_CLASS_OBJECT/134_RealBrowser.js — practical `Testcase` class example and method vs function
   - 02_CLASS_OBJECT/135_Private_Public.js — public vs private fields using `#`
   - 02_CLASS_OBJECT/136_Static.js — static properties vs instance properties
+  - 03_ENCAPSULATION/137_encapsulation.js — encapsulation using private `#balance` and public method access
+  - 04_INHERITANCE/138_SingleInheritence.js — basic single inheritance with a base page and login page
+  - 04_INHERITANCE/139_SingleInheritance.js — constructor inheritance using `super()`
+  - 04_INHERITANCE/140_SingleInheritence.js — method overriding in a child class
+  - 04_INHERITANCE/141_SuperKeyword.js — calling parent class behavior with `super`
+  - 04_INHERITANCE/142_HieraricalInheritence.js — hierarchical inheritance with multiple child classes
+  - 04_INHERITANCE/143_MultilevelInheritence.js — multilevel inheritance chain
+  - 05_POLYMORPHISM/144_Polymorphism.js — polymorphism through method overriding
 
 ## How to use
 
