@@ -1,4 +1,4 @@
-# JavaScript Interview Notes
+# JavaScript & TypeScript Interview Notes
 
 ## 1. JavaScript Basics
 
@@ -2583,7 +2583,7 @@ Important notes:
 
 ## 34. OOPS Basics: Export & Import
 
-The `chatper_20_OOPS_Basics/01_EXPORT_IMPORT/` chapter introduces ES module export/import syntax. These examples use `.js` files and show both named exports and default exports with practical test-automation style values.
+The `chapter_20_OOPS_Basics/01_EXPORT_IMPORT/` chapter introduces ES module export/import syntax. These examples use `.js` files and show both named exports and default exports with practical test-automation style values.
 
 ### Named Exports
 
@@ -2656,7 +2656,7 @@ log1("Starting test case");
 
 ## 35. OOPS Basics: Class & Object
 
-The `chatper_20_OOPS_Basics/02_CLASS_OBJECT/` chapter introduces object-oriented programming basics using classes, objects, constructors, methods, private fields, and static members.
+The `chapter_20_OOPS_Basics/02_CLASS_OBJECT/` chapter introduces object-oriented programming basics using classes, objects, constructors, methods, private fields, and static members.
 
 ### Class and Object
 
@@ -2966,3 +2966,199 @@ api.setup();
 | File | Description |
 |---|---|
 | `05_POLYMORPHISM/144_Polymorphism.js` | Polymorphism example using method overriding |
+
+---
+
+## 39. TypeScript Basics
+
+The `chapter_21_Typescript/` chapter introduces TypeScript as JavaScript with type checking. TypeScript code is written in `.ts` files and can be compiled into normal JavaScript.
+
+### TypeScript vs JavaScript
+
+JavaScript allows variables and function parameters without declared types.
+
+```js
+let testName = "Login Test";
+
+function add_js(a, b) {
+    return a + b;
+}
+```
+
+TypeScript lets us declare the expected type.
+
+```ts
+let testName: string = "Login Test";
+
+function add_ts(a: number, b: number): number {
+    return a + b;
+}
+```
+
+Here:
+
+| Syntax | Meaning |
+|---|---|
+| `testName: string` | `testName` should store a string |
+| `a: number` | `a` should be a number |
+| `b: number` | `b` should be a number |
+| `): number` | the function should return a number |
+
+### Function Return Types
+
+TypeScript can describe what a function returns.
+
+```ts
+function add(a: number, b: number): number {
+    return a + b;
+}
+```
+
+If a function does not return a value, use `void`.
+
+```ts
+function hello(msg: string): void {
+    console.log("Hello ! How are You ? ", msg);
+}
+
+hello("Vineet");
+```
+
+Important point:
+
+- `number`, `string`, `boolean`, etc. describe returned values.
+- `void` means the function completes but does not return a usable value.
+- `never` means the function never completes normally.
+
+### Running TypeScript Files
+
+Two useful commands are shown in the chapter:
+
+```bash
+ts-node chapter_21_Typescript/146_typescript.ts
+```
+
+`ts-node` compiles and runs the TypeScript file directly. The compiled JavaScript file is not shown.
+
+```bash
+tsc chapter_21_Typescript/146_typescript.ts --ignoreConfig
+```
+
+`tsc` compiles the TypeScript file and shows generated JavaScript output as a `.js` file.
+
+### Primitive Types
+
+```ts
+let name: string = "Vineet";
+let age: number = 35;
+let pi: number = 3.14;
+let isActive: boolean = true;
+let nothing: null = null;
+let notDefined: undefined = undefined;
+```
+
+Important point:
+
+- TypeScript uses `number` for both integers and decimal values.
+- There is no separate `float` type in JavaScript or TypeScript.
+
+### Typed Arrays
+
+Arrays can be typed in two common ways.
+
+```ts
+let numbers: number[] = [1, 2, 3, 4, 5];
+let names: Array<string> = ["Vineet", "John"];
+```
+
+Both styles are valid:
+
+| Style | Example |
+|---|---|
+| Square bracket syntax | `number[]` |
+| Generic syntax | `Array<string>` |
+
+### any vs unknown
+
+```ts
+let anything: any = "hello";
+let hel: unknown = "krish";
+```
+
+| Type | Meaning |
+|---|---|
+| `any` | Turns off type checking for that value |
+| `unknown` | Allows any value, but requires type checking before safe usage |
+
+Key point: avoid using `any` unless really needed. `unknown` is safer because TypeScript asks you to verify the value before using it like a specific type.
+
+### Typed Arrow Functions
+
+Arrow functions can also use parameter and return type annotations.
+
+```ts
+const multiply = (a: number, b: number): number => {
+    return a * b;
+};
+
+console.log(multiply(3, 4)); // 12
+```
+
+### never Type
+
+`never` is used when a function cannot return normally.
+
+```ts
+function infiniteLoop(): never {
+    while (true) { }
+}
+
+function throwError(message: string): never {
+    throw new Error(message);
+}
+```
+
+Use `never` when:
+
+- A function runs forever.
+- A function always throws an error.
+- The function has no normal successful return path.
+
+### tsconfig.json
+
+The root `tsconfig.json` stores TypeScript compiler settings for the project.
+
+Important settings currently used:
+
+| Setting | Meaning |
+|---|---|
+| `"module": "nodenext"` | Uses Node.js-style modern module behavior |
+| `"target": "esnext"` | Compiles for modern JavaScript |
+| `"strict": true` | Enables strict type checking |
+| `"sourceMap": true` | Generates source maps |
+| `"declaration": true` | Generates `.d.ts` declaration files |
+| `"noUncheckedIndexedAccess": true` | Makes array/object index access safer |
+| `"exactOptionalPropertyTypes": true` | Makes optional property typing stricter |
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `145_typescript.ts` | First TypeScript example with typed variable and typed function return |
+| `145_typescript.js` | Compiled JavaScript output from the first TypeScript example |
+| `146_typescript.ts` | `void` function example and TypeScript run/compile command notes |
+| `147_typescript.ts` | Primitive types, typed arrays, `any`, and `unknown` |
+| `148_typescript.ts` | Typed arrow function example |
+| `149_typescript.ts` | `never` examples using an infinite loop and thrown error |
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Type annotation | Tells TypeScript what kind of value is expected |
+| Return type | Describes what a function should return |
+| `void` | Function does not return a useful value |
+| `never` | Function never returns normally |
+| Typed array | Restricts array values to a specific type |
+| `any` | Avoid when possible because it removes type safety |
+| `unknown` | Safer option when the value type is not known yet |

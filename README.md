@@ -1,6 +1,6 @@
 # LearningPlaywright2x
 
-This repository is a beginner-friendly learning project focused on JavaScript fundamentals, Playwright automation basics, and OOPS/module concepts.
+This repository is a beginner-friendly learning project focused on JavaScript fundamentals, Playwright automation basics, OOPS/module concepts, and TypeScript basics.
 
 ## What is included
 
@@ -21,6 +21,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Async/Await fundamentals: `async` functions, `await` on promises, `try`/`catch`/`finally` error handling, solving callback hell with sequential async/await, sequential awaited API calls, and parallel calls with `Promise.all` / `Promise.allSettled` + destructuring
 - Playwright basics: TypeScript Playwright specs with `@playwright/test`, page navigation, locator actions (click/fill), assertions, Chromium project config, HTML reports, and test result output
 - OOPS basics: ES module export/import examples, named exports, default exports, aliases, classes, objects, constructors, encapsulation, inheritance, polymorphism, private fields, and static members
+- TypeScript basics: type annotations, function return types, `void`, primitive types, typed arrays, `any`, `unknown`, typed arrow functions, `never`, `ts-node`, `tsc`, and root `tsconfig.json` settings
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -200,7 +201,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - tests/codegen_tta-cart.spec.ts — login error test against the TTACart demo app with data-test locators and assertions
   - sdet.pdf — reference material
 
-- chatper_20_OOPS_Basics/ - OOPS basics covering module exports/imports, class/object concepts, encapsulation, inheritance, and polymorphism
+- chapter_20_OOPS_Basics/ - OOPS basics covering module exports/imports, class/object concepts, encapsulation, inheritance, and polymorphism
   - testUtils.js — named exports: `BASE_URL`, `formatTestName`, and `name`
   - logger.js — default export `log1` and named export `log2`
   - 01_EXPORT_IMPORT/128_EXPORT_IMPORT.js — imports named exports from `testUtils.js`
@@ -222,6 +223,16 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 04_INHERITANCE/143_MultilevelInheritence.js — multilevel inheritance chain
   - 05_POLYMORPHISM/144_Polymorphism.js — polymorphism through method overriding
 
+- chapter_21_Typescript/ - TypeScript basics covering typed variables, functions, arrays, return types, compiler/runtime commands, arrow functions, and `never`
+  - 145_typescript.ts — first TypeScript example with typed string variable and typed `add_ts()` function
+  - 145_typescript.js — compiled JavaScript output for the first TypeScript example
+  - 146_typescript.ts — `void` function example plus notes for running with `ts-node` or compiling with `tsc`
+  - 147_typescript.ts — primitive types, typed arrays (`number[]`, `Array<string>`), `any`, and `unknown`
+  - 148_typescript.ts — typed arrow function with explicit `number` return type
+  - 149_typescript.ts — `never` return type examples for infinite loops and thrown errors
+
+- tsconfig.json - root TypeScript configuration using `nodenext`, `esnext`, `strict`, source maps, declaration output, and extra strictness options such as `noUncheckedIndexedAccess`
+
 ## How to use
 
 1. Open any JavaScript file in VS Code.
@@ -229,7 +240,8 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 3. Run the files using Node.js to observe the output.
 4. Use the notes in the chapter folders as a reference while learning.
 5. For Playwright examples, run commands from inside `chapter_19_playwright_Basics/`.
-6. Practice by modifying the examples and experimenting.
+6. For TypeScript examples, run files with `ts-node` or compile them with `tsc`.
+7. Practice by modifying the examples and experimenting.
 
 ## Running Playwright Tests
 
@@ -241,4 +253,4 @@ npm run test:tta-cart
 npx playwright test tests/example.spec.ts
 ```
 
-This project is intended for learning and practice purposes, and it currently covers JavaScript fundamentals, Playwright basics, export/import patterns, and OOPS fundamentals.
+This project is intended for learning and practice purposes, and it currently covers JavaScript fundamentals, Playwright basics, export/import patterns, OOPS fundamentals, and TypeScript basics.
