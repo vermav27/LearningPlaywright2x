@@ -2,6 +2,7 @@
   "name": "chapter_19_playwright_basics",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "test": "playwright test",
     "test:tta-cart": "playwright test tests/codegen_tta-cart.spec.ts"
