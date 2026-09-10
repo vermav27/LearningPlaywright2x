@@ -1,8 +1,9 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
-// page - inbuild fixture - Functions you can directly use in playwright
+// page - built-in fixture you can directly use in Playwright
 
-test("Verify that the title will be TTA Cart", async ({ page }) => {
-  await page.goto("https://app.thetestingacademy.com/playwright/ttacart/");
-  await expect(page.locator('h1')).toContainText('TTACart');
+test('shows the TTACart heading', async ({ page }) => {
+  await page.goto('https://app.thetestingacademy.com/playwright/ttacart/');
+
+  await expect(page.getByRole('heading', { name: 'TTACart' })).toBeVisible();
 });
