@@ -3162,3 +3162,87 @@ Important settings currently used:
 | Typed array | Restricts array values to a specific type |
 | `any` | Avoid when possible because it removes type safety |
 | `unknown` | Safer option when the value type is not known yet |
+
+---
+
+## 40. Abstraction vs Encapsulation
+
+The `chapter_22_Abstraction/` chapter explains the simple difference between encapsulation and abstraction.
+
+Encapsulation is about hiding data. Abstraction is about hiding internal details and showing only the important action.
+
+### Simple Difference
+
+| Encapsulation | Abstraction |
+|---|---|
+| Hides data | Hides details |
+| Protects variables | Shows essentials |
+| Uses private fields | Uses simple methods |
+| Controls access | Reduces complexity |
+
+### Encapsulation Example
+
+Encapsulation protects data by keeping it private and allowing access through public methods.
+
+```js
+class BankAccount {
+    #balance;
+
+    constructor(balance) {
+        this.#balance = balance;
+    }
+
+    showBalance() {
+        console.log(this.#balance);
+    }
+}
+
+const account = new BankAccount(5000);
+account.showBalance();
+// console.log(account.#balance); // Error: private field
+```
+
+Here, `#balance` is private. Outside code cannot directly access it.
+
+### Abstraction Example
+
+Abstraction hides internal steps and gives the user a simple method to call.
+
+```js
+class Car {
+    start() {
+        this.#checkFuel();
+        this.#startEngine();
+        console.log("Car started");
+    }
+
+    #checkFuel() {
+        console.log("Fuel checked");
+    }
+
+    #startEngine() {
+        console.log("Engine started");
+    }
+}
+
+const car = new Car();
+car.start();
+```
+
+Here, the user only calls `start()`. The fuel check and engine start details are hidden inside the class.
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Encapsulation | Hide and protect data |
+| Abstraction | Hide internal details |
+| Private field | Keeps data/methods inside class |
+| Public method | Gives simple outside access |
+| Main difference | Data hiding vs detail hiding |
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `150_Abstraction_Encapsulation_Diff.md` | Difference table and simple examples for encapsulation and abstraction |
