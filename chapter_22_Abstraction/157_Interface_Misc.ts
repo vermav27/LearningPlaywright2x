@@ -7,3 +7,4 @@ const english: dictionary = {
     hola: "mola"
 }
 
+// creating dictionary type of interface as this example has array
