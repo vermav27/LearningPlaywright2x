@@ -1,6 +1,6 @@
 # LearningPlaywright2x
 
-This repository is a beginner-friendly learning project focused on JavaScript fundamentals, Playwright automation basics, OOPS/module concepts, and TypeScript basics.
+This repository is a beginner-friendly learning project focused on JavaScript fundamentals, Playwright automation basics, OOPS/module concepts, TypeScript basics, and abstraction concepts.
 
 ## What is included
 
@@ -22,6 +22,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Playwright basics: TypeScript Playwright specs with `@playwright/test`, page navigation, locator actions (click/fill), assertions, Chromium project config, HTML reports, and test result output
 - OOPS basics: ES module export/import examples, named exports, default exports, aliases, classes, objects, constructors, encapsulation, inheritance, polymorphism, private fields, and static members
 - TypeScript basics: type annotations, function return types, `void`, primitive types, typed arrays, `any`, `unknown`, typed arrow functions, `never`, `ts-node`, `tsc`, and root `tsconfig.json` settings
+- Abstraction basics: simple differences between encapsulation and abstraction, hiding data vs hiding details, private fields, and simple public methods
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -231,6 +232,9 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 148_typescript.ts — typed arrow function with explicit `number` return type
   - 149_typescript.ts — `never` return type examples for infinite loops and thrown errors
 
+- chapter_22_Abstraction/ - abstraction and encapsulation comparison with simple examples
+  - 150_Abstraction_Encapsulation_Diff.md — short difference table plus examples for encapsulation with `#balance` and abstraction with a simple `start()` method
+
 - tsconfig.json - root TypeScript configuration using `nodenext`, `esnext`, `strict`, source maps, declaration output, and extra strictness options such as `noUncheckedIndexedAccess`
 
 ## How to use
@@ -253,4 +257,4 @@ npm run test:tta-cart
 npx playwright test tests/example.spec.ts
 ```
 
-This project is intended for learning and practice purposes, and it currently covers JavaScript fundamentals, Playwright basics, export/import patterns, OOPS fundamentals, and TypeScript basics.
+This project is intended for learning and practice purposes, and it currently covers JavaScript fundamentals, Playwright basics, export/import patterns, OOPS fundamentals, TypeScript basics, and abstraction concepts.
