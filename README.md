@@ -1,6 +1,6 @@
 # LearningPlaywright2x
 
-This repository is a beginner-friendly learning project focused on JavaScript fundamentals, Playwright automation basics, OOPS/module concepts, TypeScript basics, abstraction concepts, TypeScript enums, TypeScript generics, and access modifiers.
+This repository is a beginner-friendly learning project focused on JavaScript fundamentals, Playwright automation basics, OOPS/module concepts, TypeScript basics, abstraction concepts, TypeScript enums, TypeScript generics, access modifiers, and abstract classes.
 
 ## What is included
 
@@ -26,6 +26,7 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - TypeScript enum basics: string enums for test status, severity, environments, and browser launch decisions with `switch`
 - TypeScript generics basics: generic functions, generic classes, reusable type variables like `<T>`, typed arrays, and type-safe reuse for numbers and strings
 - TypeScript access modifiers: `public`, `private`, and `protected` class members using API configuration examples and inheritance
+- TypeScript abstract classes: abstract methods, shared concrete methods, child class implementation with `extends`, and abstract class vs interface differences
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -257,6 +258,10 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - chapter_25_Public_Private_Protected/ - TypeScript access modifiers in classes
   - 163_ppp.ts — `public`, `private`, and `protected` examples using `APIConfig` and child class `UserAPIConfig`
 
+- chapter_26_AbstractClass/ - TypeScript abstract classes and abstract class vs interface comparison
+  - 164_AbstractClass.ts — abstract `BaseTest` with abstract setup/teardown methods and shared `settingConfig()` method
+  - 165_AbstractClass_vs_interface.md — one-line difference table between abstract classes and interfaces with simple examples
+
 - tsconfig.json - root TypeScript configuration using `nodenext`, `esnext`, `strict`, source maps, declaration output, and extra strictness options such as `noUncheckedIndexedAccess`
 
 ## How to use
@@ -279,4 +284,4 @@ npm run test:tta-cart
 npx playwright test tests/example.spec.ts
 ```
 
-This project is intended for learning and practice purposes, and it currently covers JavaScript fundamentals, Playwright basics, export/import patterns, OOPS fundamentals, TypeScript basics, abstraction concepts, TypeScript enums, TypeScript generics, and access modifiers.
+This project is intended for learning and practice purposes, and it currently covers JavaScript fundamentals, Playwright basics, export/import patterns, OOPS fundamentals, TypeScript basics, abstraction concepts, TypeScript enums, TypeScript generics, access modifiers, and abstract classes.

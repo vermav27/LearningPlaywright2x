@@ -3709,3 +3709,103 @@ From `user2`, we can directly access only public members such as `baseUrl`, `get
 | File | Description |
 |---|---|
 | `163_ppp.ts` | Public, private, and protected examples using `APIConfig` and `UserAPIConfig` |
+
+---
+
+## 44. TypeScript Abstract Classes
+
+The `chapter_26_AbstractClass/` chapter explains abstract classes and compares abstract classes with interfaces.
+
+An abstract class is a base class that cannot be used directly to create an object. It is meant to be extended by child classes.
+
+### Abstract Class Example
+
+```ts
+abstract class BaseTest {
+    protected name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+
+    abstract setup(): void;
+    abstract teardown(): void;
+    abstract tearup(): void;
+
+    settingConfig(): void {
+        console.log("Setting up the configurations");
+    }
+}
+```
+
+Here:
+
+| Code | Meaning |
+|---|---|
+| `abstract class BaseTest` | Base class only |
+| `abstract setup()` | Child must implement |
+| `settingConfig()` | Common method with code |
+| `protected name` | Parent and child access |
+
+### Child Class Implementation
+
+```ts
+class UI extends BaseTest {
+    setup(): void {
+        console.log("This is setup.");
+    }
+
+    teardown(): void {
+        console.log("This is teardown.");
+    }
+
+    tearup(): void {
+        console.log("This is tearup.");
+    }
+}
+
+let user1 = new UI("a");
+user1.setup();
+user1.teardown();
+user1.tearup();
+user1.settingConfig();
+```
+
+The child class `UI` must provide code for all abstract methods from `BaseTest`.
+
+### Abstract Class vs Interface
+
+| Aspect | Abstract Class | Interface |
+|---|---|---|
+| Purpose | Shares common code | Defines class rules |
+| Implementation | Can have method code | Only method structure |
+| Keyword | Child uses `extends` | Class uses `implements` |
+| Inheritance | One abstract class | Multiple interfaces |
+| Constructor | Can have constructor | No constructor |
+| State | Can store data | No real data |
+| Access modifiers | Supports access modifiers | Mostly public contract |
+| Best use | Common base behavior | Common shape/contract |
+
+### Easy Rule
+
+Use an abstract class when child classes need shared common code.
+
+Use an interface when classes only need to follow a fixed structure.
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Abstract class | Cannot create direct object |
+| Abstract method | Child must implement |
+| Concrete method | Already has code |
+| `extends` | Used with abstract class |
+| Interface | Defines rules/structure |
+| `implements` | Used with interface |
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `164_AbstractClass.ts` | Abstract `BaseTest` and child `UI` class example |
+| `165_AbstractClass_vs_interface.md` | Simple abstract class vs interface difference table and examples |
