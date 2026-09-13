@@ -3165,9 +3165,9 @@ Important settings currently used:
 
 ---
 
-## 40. Abstraction vs Encapsulation
+## 40. Abstraction, Encapsulation, and TypeScript Interfaces
 
-The `chapter_22_Abstraction/` chapter explains the simple difference between encapsulation and abstraction.
+The `chapter_22_Abstraction/` chapter explains the simple difference between encapsulation and abstraction. It also introduces TypeScript interfaces, `readonly`, optional properties, interface inheritance, function signatures, class implementation, and dictionary/index signatures.
 
 Encapsulation is about hiding data. Abstraction is about hiding internal details and showing only the important action.
 
@@ -3241,8 +3241,370 @@ Here, the user only calls `start()`. The fuel check and engine start details are
 | Public method | Gives simple outside access |
 | Main difference | Data hiding vs detail hiding |
 
+### TypeScript Interface
+
+An interface defines the structure an object should follow.
+
+```ts
+interface User {
+    name: string;
+    phone: number;
+    email: string;
+}
+
+const user1: User = {
+    name: "Vineet",
+    phone: 8787879068,
+    email: "hello@mail.com"
+};
+```
+
+Here, every `User` object must have `name`, `phone`, and `email`.
+
+### readonly Properties
+
+`readonly` means the value can be assigned once, but cannot be changed later.
+
+```ts
+interface point {
+    readonly name: string;
+    readonly id: string;
+}
+
+const user1: point = {
+    name: "Vineet",
+    id: "12xitr45"
+};
+
+// user1.name = "Vikas"; // not allowed
+```
+
+### Interface Inheritance
+
+An interface can extend another interface. The child interface gets all parent properties.
+
+```ts
+interface baseClass {
+    readonly url: string;
+    readonly token: string;
+}
+
+interface login extends baseClass {
+    readonly userName: string;
+    readonly password: string;
+}
+
+let test1: login = {
+    url: "www.google.com",
+    token: "324u34234h234923y49237h4u23g4jh2g43yftr42gf3d4f283",
+    userName: "vverma",
+    password: "hello12345",
+};
+```
+
+Here, `login` must include properties from both `baseClass` and `login`.
+
+### Optional Properties
+
+Use `?` when a property is optional.
+
+```ts
+interface APIResponse {
+    endpoint: string;
+    header?: object;
+    body: string;
+    responseCode: number;
+}
+
+let hitAPI1: APIResponse = {
+    endpoint: "www.cptest.sciensus.com",
+    body: "{ }",
+    responseCode: 202
+};
+```
+
+Here, `header` is optional, so the object is valid even without it.
+
+### Function Signatures in Interface
+
+Interfaces can also define functions.
+
+```ts
+interface calculation {
+    add(a: number, b: number): number;
+    subtract(x: number, y: number): number;
+}
+
+let addition: calculation = {
+    add: (a, b) => a + b,
+    subtract: (x, y) => x - y
+};
+```
+
+The object must provide both functions with the correct parameters and return types.
+
+### Class Implements Interface
+
+A class uses `implements` to follow an interface contract.
+
+```ts
+interface execution {
+    name: string;
+    run(a: number): number;
+    getStatus(): string;
+}
+
+class myExecution implements execution {
+    name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+
+    run(a: number): number {
+        return a + 1;
+    }
+
+    getStatus(): string {
+        return "PASS";
+    }
+}
+```
+
+Important point:
+
+- Interface extends another interface.
+- Class implements an interface.
+
+### Dictionary / Index Signature
+
+An index signature is useful when an object can have many dynamic keys of the same type.
+
+```ts
+interface dictionary {
+    [key: string]: string;
+}
+
+const english: dictionary = {
+    foo: "hello",
+    hola: "mola"
+};
+```
+
+Here, every key is a string and every value must also be a string.
+
+### Interface Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Interface | Object structure |
+| `readonly` | Cannot reassign |
+| `?` | Optional property |
+| `extends` | Interface inheritance |
+| Function signature | Required method shape |
+| `implements` | Class follows interface |
+| Index signature | Dynamic keys |
+
 ### Files in this Chapter
 
 | File | Description |
 |---|---|
 | `150_Abstraction_Encapsulation_Diff.md` | Difference table and simple examples for encapsulation and abstraction |
+| `151_Interface.ts` | Basic `User` interface example |
+| `152_ReadOnly.ts` | `readonly` properties in an interface |
+| `153_Interface_PageObject.ts` | Interface inheritance using `extends` |
+| `154_APIResponse.ts` | Optional property using `?` |
+| `155_Function.ts` | Function signatures inside an interface |
+| `156_class_interface.ts` | Class implementing an interface using `implements` |
+| `157_Interface_Misc.ts` | Dictionary/index signature interface |
+
+---
+
+## 41. TypeScript Enums
+
+The `chapter_23_Typescript_Enums/` chapter introduces enums. An enum is a group of named constant values.
+
+Enums make code more readable because we use names like `TestStatus.Fail` or `Browser.chrome` instead of writing raw strings everywhere.
+
+### Basic String Enum
+
+```ts
+enum TestStatus {
+    Pass = "PASS",
+    Fail = "FAIL",
+    Skipped = "SKIPPED",
+    Pending = "PENDING",
+    Blocked = "BLOCKED"
+}
+
+enum SeverityLevels {
+    high = "HIGH",
+    low = "LOW",
+    medium = "MEDIUM",
+    critical = "CRITICAL",
+    blocking = "BLOCKING"
+}
+
+console.log(TestStatus.Fail + " --> " + SeverityLevels.critical);
+```
+
+Here, `TestStatus.Fail` gives `"FAIL"` and `SeverityLevels.critical` gives `"CRITICAL"`.
+
+### Environment Enum
+
+Enums are useful for storing fixed environment URLs.
+
+```ts
+enum environment {
+    qa = "https://qa.sciensus.com",
+    cptest = "https://cptest.sciensus.com",
+    prod = "https://www.sciensus.com",
+}
+
+console.log(environment.qa);
+```
+
+This avoids hardcoding the same environment URLs in multiple places.
+
+### Enum with switch
+
+Enums can also be used with `switch` to control logic.
+
+```ts
+enum Browser {
+    firefox = "FIREFOX",
+    chrome = "CHROME",
+    ie = "INTERNET EXPLORER",
+    safari = "SAFARI"
+}
+
+function LaunchBrowser(browser: Browser): void {
+    switch (browser) {
+        case Browser.firefox:
+            console.log("Launching mozilla firefox....");
+            break;
+        case Browser.chrome:
+            console.log("Launching google chrome...");
+            break;
+        case Browser.ie:
+            console.log("Launching microsoft internet explorer...");
+            break;
+        case Browser.safari:
+            console.log("Launching apple safari...");
+            break;
+    }
+}
+
+LaunchBrowser(Browser.chrome);
+```
+
+Here, the function accepts only values from the `Browser` enum.
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Enum | Named constants |
+| String enum | Fixed string values |
+| Readability | Avoid raw strings |
+| Type safety | Limits accepted values |
+| Automation use | Status, severity, env, browser |
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `158_Enums.ts` | Test status and severity string enums |
+| `159_Enum_RealExample.ts` | Environment URL enum |
+| `160_Enum_RealExample.ts` | Browser enum with `switch` launch logic |
+
+---
+
+## 42. TypeScript Generics
+
+The `chapter_24_Typescript_Generics/` chapter introduces generics. Generics let functions and classes work with different data types while still keeping type safety.
+
+The common generic placeholder is `<T>`. It acts like a type variable.
+
+### Generic Function
+
+A generic function can work with many types without rewriting the same logic.
+
+```ts
+function getValue<T>(result: T[]) {
+    return result[0]!;
+}
+
+const value = getValue<number>([200, 300, 400]);
+console.log(value);
+```
+
+Here:
+
+| Code | Meaning |
+|---|---|
+| `<T>` | Type placeholder |
+| `result: T[]` | Array of selected type |
+| `return result[0]` | Returns same selected type |
+| `getValue<number>` | `T` becomes `number` |
+
+So `getValue<number>([200, 300, 400])` returns a number.
+
+### Generic Class
+
+A generic class can reuse the same class logic for different data types.
+
+```ts
+class ArrayManipulation<T> {
+    private items: T[] = [];
+
+    addItem(item: T): void {
+        this.items.push(item);
+    }
+
+    getItem(num: number): T {
+        return this.items[num] as T;
+    }
+
+    getAllItem(): T[] {
+        return this.items;
+    }
+
+    counts(): number {
+        return this.items.length;
+    }
+}
+
+let arr1 = new ArrayManipulation<number>();
+let arr2 = new ArrayManipulation<string>();
+```
+
+For `arr1`, `T` becomes `number`, so only numbers should be added.
+
+For `arr2`, `T` becomes `string`, so only strings should be added.
+
+```ts
+arr1.addItem(200);
+arr1.addItem(300);
+
+arr2.addItem("Login");
+arr2.addItem("Dashboard");
+```
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| Generic | Reusable with types |
+| `<T>` | Type variable |
+| Generic function | Reusable function logic |
+| Generic class | Reusable class logic |
+| `T[]` | Array of selected type |
+| Type safety | Prevents wrong values |
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `161_Generics.ts` | Generic function using `<T>` with arrays |
+| `162_GenericsClass.ts` | Generic class reused for number and string arrays |

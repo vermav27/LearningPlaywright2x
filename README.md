@@ -1,6 +1,6 @@
 # LearningPlaywright2x
 
-This repository is a beginner-friendly learning project focused on JavaScript fundamentals, Playwright automation basics, OOPS/module concepts, TypeScript basics, and abstraction concepts.
+This repository is a beginner-friendly learning project focused on JavaScript fundamentals, Playwright automation basics, OOPS/module concepts, TypeScript basics, abstraction concepts, TypeScript enums, and TypeScript generics.
 
 ## What is included
 
@@ -22,7 +22,9 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
 - Playwright basics: TypeScript Playwright specs with `@playwright/test`, page navigation, locator actions (click/fill), assertions, Chromium project config, HTML reports, and test result output
 - OOPS basics: ES module export/import examples, named exports, default exports, aliases, classes, objects, constructors, encapsulation, inheritance, polymorphism, private fields, and static members
 - TypeScript basics: type annotations, function return types, `void`, primitive types, typed arrays, `any`, `unknown`, typed arrow functions, `never`, `ts-node`, `tsc`, and root `tsconfig.json` settings
-- Abstraction basics: simple differences between encapsulation and abstraction, hiding data vs hiding details, private fields, and simple public methods
+- Abstraction and interface basics: simple differences between encapsulation and abstraction, hiding data vs hiding details, private fields, simple public methods, TypeScript interfaces, `readonly`, optional properties, interface inheritance, function signatures, class implementation, and dictionary/index signatures
+- TypeScript enum basics: string enums for test status, severity, environments, and browser launch decisions with `switch`
+- TypeScript generics basics: generic functions, generic classes, reusable type variables like `<T>`, typed arrays, and type-safe reuse for numbers and strings
 - VS Code shortcut notes for Windows and macOS
 
 ## Project Structure
@@ -232,8 +234,24 @@ This repository is a beginner-friendly learning project focused on JavaScript fu
   - 148_typescript.ts — typed arrow function with explicit `number` return type
   - 149_typescript.ts — `never` return type examples for infinite loops and thrown errors
 
-- chapter_22_Abstraction/ - abstraction and encapsulation comparison with simple examples
+- chapter_22_Abstraction/ - abstraction, encapsulation, and TypeScript interface concepts
   - 150_Abstraction_Encapsulation_Diff.md — short difference table plus examples for encapsulation with `#balance` and abstraction with a simple `start()` method
+  - 151_Interface.ts — basic TypeScript interface for user objects
+  - 152_ReadOnly.ts — `readonly` interface properties that cannot be reassigned
+  - 153_Interface_PageObject.ts — interface inheritance using `extends` for page object style data
+  - 154_APIResponse.ts — optional interface property using `?`
+  - 155_Function.ts — interface method signatures for calculation functions
+  - 156_class_interface.ts — class implementing an interface with `implements`
+  - 157_Interface_Misc.ts — dictionary/index signature interface using `[key: string]: string`
+
+- chapter_23_Typescript_Enums/ - TypeScript enum basics and practical examples
+  - 158_Enums.ts — string enums for test status and severity levels
+  - 159_Enum_RealExample.ts — environment URL enum for QA, CP test, and production
+  - 160_Enum_RealExample.ts — browser enum with `switch` based launch logic
+
+- chapter_24_Typescript_Generics/ - TypeScript generic functions and generic classes
+  - 161_Generics.ts — generic function using `<T>` to return the first item from a typed array
+  - 162_GenericsClass.ts — generic `ArrayManipulation<T>` class reused for number and string arrays
 
 - tsconfig.json - root TypeScript configuration using `nodenext`, `esnext`, `strict`, source maps, declaration output, and extra strictness options such as `noUncheckedIndexedAccess`
 
@@ -257,4 +275,4 @@ npm run test:tta-cart
 npx playwright test tests/example.spec.ts
 ```
 
-This project is intended for learning and practice purposes, and it currently covers JavaScript fundamentals, Playwright basics, export/import patterns, OOPS fundamentals, TypeScript basics, and abstraction concepts.
+This project is intended for learning and practice purposes, and it currently covers JavaScript fundamentals, Playwright basics, export/import patterns, OOPS fundamentals, TypeScript basics, abstraction concepts, TypeScript enums, and TypeScript generics.
