@@ -3608,3 +3608,104 @@ arr2.addItem("Dashboard");
 |---|---|
 | `161_Generics.ts` | Generic function using `<T>` with arrays |
 | `162_GenericsClass.ts` | Generic class reused for number and string arrays |
+
+---
+
+## 43. TypeScript Public, Private, and Protected
+
+The `chapter_25_Public_Private_Protected/` chapter explains access modifiers in TypeScript classes.
+
+Access modifiers control where class data and methods can be used.
+
+| Modifier | Access |
+|---|---|
+| `public` | Anywhere |
+| `private` | Same class only |
+| `protected` | Class and child |
+
+### APIConfig Example
+
+```ts
+class APIConfig {
+    public baseUrl: string;
+    private token: string;
+    protected timeout: number;
+
+    constructor(base: string, tok: string, time: number) {
+        this.baseUrl = base;
+        this.token = tok;
+        this.timeout = time;
+    }
+
+    private apiAccess(): string {
+        return "Bearer " + this.token;
+    }
+
+    public SendRequest(path: string): void {
+        console.log("GET " + this.baseUrl + path);
+        console.log("Auth: " + this.apiAccess());
+        console.log("Timeout : " + this.timeout + " ms");
+    }
+}
+```
+
+Here:
+
+| Member | Modifier | Meaning |
+|---|---|---|
+| `baseUrl` | `public` | Can be accessed outside |
+| `token` | `private` | Only inside `APIConfig` |
+| `timeout` | `protected` | Inside `APIConfig` and child classes |
+| `apiAccess()` | `private` | Only inside `APIConfig` |
+| `SendRequest()` | `public` | Can be called from objects |
+
+### Child Class Access
+
+```ts
+class UserAPIConfig extends APIConfig {
+    getDetails(): void {
+        console.log("Time Out : " + this.timeout);
+        console.log("Base URL : " + this.baseUrl);
+        // console.log("Token : " + this.apiAccess()); // not allowed
+    }
+}
+```
+
+`UserAPIConfig` can access:
+
+- `baseUrl` because it is `public`.
+- `timeout` because it is `protected`.
+
+`UserAPIConfig` cannot access:
+
+- `token` because it is `private`.
+- `apiAccess()` because it is `private`.
+
+### Object Access
+
+```ts
+let user2: UserAPIConfig = new UserAPIConfig("www.google.com", "34jh5g34h5jg352", 35);
+
+user2.getDetails();
+user2.SendRequest("/users");
+console.log("Public Base URL from user2 : " + user2.baseUrl);
+```
+
+From `user2`, we can directly access only public members such as `baseUrl`, `getDetails()`, and `SendRequest()`.
+
+### Key Takeaways
+
+| Concept | Key Point |
+|---|---|
+| `public` | Accessible everywhere |
+| `private` | Same class only |
+| `protected` | Parent and child |
+| Child class | Can use protected |
+| Object | Can use public |
+| Encapsulation | Protects private data |
+
+### Files in this Chapter
+
+| File | Description |
+|---|---|
+| `163_ppp.ts` | Public, private, and protected examples using `APIConfig` and `UserAPIConfig` |
